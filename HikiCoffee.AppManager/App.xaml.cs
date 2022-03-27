@@ -20,7 +20,7 @@ namespace HikiCoffee.AppManager
         {
             base.ConfigureViewModelLocator();
 
-
+            //ViewModelLocationProvider.Register<MainView, MainViewModel>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
