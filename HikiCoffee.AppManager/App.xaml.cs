@@ -1,6 +1,10 @@
-﻿using HikiCoffee.AppManager.Views;
+﻿using HikiCoffee.AppManager.MyUserControl;
+using HikiCoffee.AppManager.ViewModels.MainViewModels;
+using HikiCoffee.AppManager.ViewModels.MyUserControlViewModels;
+using HikiCoffee.AppManager.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
+using Prism.Mvvm;
 using System;
 using System.Windows;
 
@@ -20,7 +24,8 @@ namespace HikiCoffee.AppManager
         {
             base.ConfigureViewModelLocator();
 
-            //ViewModelLocationProvider.Register<MainView, MainViewModel>();
+            ViewModelLocationProvider.Register<ControlBarUC, ControlBarUCVM>();
+            ViewModelLocationProvider.Register<MainView, MainVM>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
