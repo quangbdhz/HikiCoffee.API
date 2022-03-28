@@ -12,11 +12,11 @@ namespace HikiCoffee.AppManager.Converter
 
             if (status == "0")
             {
-                return "#d8d8d8";
+                return "White";
             }
             else
             {
-                return "White";
+                return "#d8d8d8";
             }
         }
 

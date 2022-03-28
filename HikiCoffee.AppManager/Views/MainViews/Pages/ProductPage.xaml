@@ -9,8 +9,16 @@
       Title="ProductPage">
 
     <StackPanel >
-        <Image Stretch="Uniform" Width="200" Source="/Images/TableFurniture/status_table_0.jpg"/>
+        <WrapPanel>
+            <Image Stretch="Uniform" Width="200">
+                <Image.Source>
+                    <BitmapImage DecodePixelWidth="300" UriSource="/Images/TableFurniture/status_table_0.jpg" />
+                </Image.Source>
+            </Image>
 
+            <Image Stretch="Uniform" Width="200" Source="/Images/TableFurniture/status_table_1.jpg"/>
+
+        </WrapPanel>
         <TextBlock Text="ProductPage"/>
     </StackPanel>
 </Page>

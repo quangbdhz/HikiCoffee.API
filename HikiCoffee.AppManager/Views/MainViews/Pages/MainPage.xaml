@@ -13,10 +13,12 @@
 
     <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-        <muc:ControlTableFurniture NameTable="Ban 01" 
-                                            UrlImage="1" BackgroundTable="1"/>
+       
 
         <muc:ControlTableFurniture NameTable="Ban 02" 
                                             UrlImage="0" BackgroundTable="0"/>
+
+        <muc:ControlTableFurniture NameTable="Ban 01" 
+                                            UrlImage="1" BackgroundTable="1"/>
     </WrapPanel>
 </Page>
