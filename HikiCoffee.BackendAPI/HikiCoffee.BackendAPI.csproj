@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HikiCoffee.Application\HikiCoffee.Application.csproj" />
+    <ProjectReference Include="..\HikiCoffee.Data\HikiCoffee.Data.csproj" />
+    <ProjectReference Include="..\HikiCoffee.Utilities\HikiCoffee.Utilities.csproj" />
+    <ProjectReference Include="..\HikiCoffee.ViewModels\HikiCoffee.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
