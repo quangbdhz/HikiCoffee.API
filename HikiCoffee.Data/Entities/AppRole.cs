@@ -2,8 +2,8 @@
 
 namespace HikiCoffee.Data.Entities
 {
-    internal class AppRole : IdentityRole<Guid>
+    public class AppRole : IdentityRole<Guid>
     {
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }
