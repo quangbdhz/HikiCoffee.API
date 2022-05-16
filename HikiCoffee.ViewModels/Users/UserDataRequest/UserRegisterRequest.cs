@@ -2,7 +2,7 @@
 
 namespace HikiCoffee.ViewModels.Users.UserDataRequest
 {
-    public class RegisterRequest
+    public class UserRegisterRequest
     {
         [Display(Name = "Tên")]
         public string FirstName { get; set; }
@@ -22,6 +22,9 @@ namespace HikiCoffee.ViewModels.Users.UserDataRequest
 
         [Display(Name = "Tài khoản")]
         public string UserName { get; set; }
+
+        [Display(Name = "Giới tính")]
+        public int GenderId { get; set; }
 
         [Display(Name = "Mật khẩu")]
         [DataType(DataType.Password)]
