@@ -3,7 +3,7 @@ using HikiCoffee.ViewModels.Users.UserDataRequest;
 
 namespace HikiCoffee.ViewModels.Users.UserRequestValidator
 {
-    public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
+    public class RegisterRequestValidator : AbstractValidator<UserRegisterRequest>
     {
         public RegisterRequestValidator()
         {

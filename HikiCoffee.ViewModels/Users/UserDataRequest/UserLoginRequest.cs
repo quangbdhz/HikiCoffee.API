@@ -1,6 +1,6 @@
 ﻿namespace HikiCoffee.ViewModels.Users.UserDataRequest
 {
-    public class LoginRequest
+    public class UserLoginRequest
     {
         public string UserName { get; set; }
 
