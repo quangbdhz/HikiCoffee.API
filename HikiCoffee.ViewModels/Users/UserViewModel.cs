@@ -25,7 +25,7 @@ namespace HikiCoffee.ViewModels.Users
         public DateTime Dob { get; set; }
 
         [Display(Name = "Giới tính")]
-        public string? Gender { get; set; }
+        public string Gender { get; set; }
 
         public IList<string> Roles { get; set; }
     }

@@ -36,8 +36,11 @@ namespace HikiCoffee.BackendAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            //0B64F6F0-9F60-45C9-9E7B-F68CCC3FC57F
             var user = await _userService.GetById(id);
             return Ok(user);
         }
+
+
     }
 }

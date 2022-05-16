@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.AppManager", "HikiCoffee.AppManager\HikiCoffee.AppManager.csproj", "{4E70B682-92E9-4D3C-B3D2-0128D612B331}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.Data", "HikiCoffee.Data\HikiCoffee.Data.csproj", "{CD742661-0493-4630-9091-B45AB3554D40}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88D6598E-DDB4-4422-B8CC-3603FD8D4A1A}"
@@ -12,13 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikiCoffee.BackendAPI", "HikiCoffee.BackendAPI\HikiCoffee.BackendAPI.csproj", "{1B602415-6858-46B8-BB52-322111733F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.BackendAPI", "HikiCoffee.BackendAPI\HikiCoffee.BackendAPI.csproj", "{1B602415-6858-46B8-BB52-322111733F75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikiCoffee.Application", "HikiCoffee.Application\HikiCoffee.Application.csproj", "{CAE07558-2612-44ED-ACCB-171406AA3F83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.Application", "HikiCoffee.Application\HikiCoffee.Application.csproj", "{CAE07558-2612-44ED-ACCB-171406AA3F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikiCoffee.ViewModels", "HikiCoffee.ViewModels\HikiCoffee.ViewModels.csproj", "{5D2D1548-C7CE-4E7E-AC42-72F2093F52BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.ViewModels", "HikiCoffee.ViewModels\HikiCoffee.ViewModels.csproj", "{5D2D1548-C7CE-4E7E-AC42-72F2093F52BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikiCoffee.Utilities", "HikiCoffee.Utilities\HikiCoffee.Utilities.csproj", "{FC0D72A9-BC85-4622-AAA9-0441E7A341C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.Utilities", "HikiCoffee.Utilities\HikiCoffee.Utilities.csproj", "{FC0D72A9-BC85-4622-AAA9-0441E7A341C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4E70B682-92E9-4D3C-B3D2-0128D612B331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E70B682-92E9-4D3C-B3D2-0128D612B331}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E70B682-92E9-4D3C-B3D2-0128D612B331}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E70B682-92E9-4D3C-B3D2-0128D612B331}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD742661-0493-4630-9091-B45AB3554D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD742661-0493-4630-9091-B45AB3554D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD742661-0493-4630-9091-B45AB3554D40}.Release|Any CPU.ActiveCfg = Release|Any CPU

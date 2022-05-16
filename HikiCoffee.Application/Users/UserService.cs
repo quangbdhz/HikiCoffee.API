@@ -45,7 +45,7 @@ namespace HikiCoffee.Application.Users
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, user.FirstName),
                 new Claim(ClaimTypes.Role, string.Join(";",roles)),
                 new Claim(ClaimTypes.Name, loginRequest.UserName)
@@ -72,7 +72,7 @@ namespace HikiCoffee.Application.Users
             }
             var roles = await _userManager.GetRolesAsync(user);
 
-            var gender = await _context.Genders.ToListAsync();
+            var gender = await _context.Genders.SingleOrDefaultAsync(x => x.Id == user.GenderId);
 
             var userViewModel = new UserViewModel()
             {
@@ -83,8 +83,10 @@ namespace HikiCoffee.Application.Users
                 Id = user.Id,
                 LastName = user.LastName,
                 UserName = user.UserName,
+                Gender = gender != null ? gender.NameGender : "null",
                 Roles = roles
             };
+
             return new ApiSuccessResult<UserViewModel>(userViewModel);
         }
 
