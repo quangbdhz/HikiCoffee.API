@@ -14,7 +14,7 @@
 
         public string SeoAlias { get; set; }
 
-        public string LanguageId { get; set; }
+        public int LanguageId { get; set; }
 
         public Category Category { get; set; }
 

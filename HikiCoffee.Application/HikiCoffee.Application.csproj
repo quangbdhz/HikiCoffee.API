@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Languages\" />
     <Folder Include="Products\" />
   </ItemGroup>
 

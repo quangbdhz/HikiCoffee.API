@@ -9,8 +9,8 @@ namespace HikiCoffee.Data.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Language>().HasData(
-                new Language() { Id = "vi-VN", NameLanguage = "Tiếng Việt", IsDefault = true },
-                new Language() { Id = "en-US", NameLanguage = "English", IsDefault = false });
+                new Language() { Id = 1, Code = "vi-VN", NameLanguage = "Tiếng Việt", IsDefault = true },
+                new Language() { Id = 2, Code = "en-US", NameLanguage = "English", IsDefault = false });
 
             modelBuilder.Entity<Status>().HasData(
                 new Status() { Id = 1, NameStatus = "Đã Thanh Toán", IsActive = true },
@@ -35,15 +35,15 @@ namespace HikiCoffee.Data.Extensions
                 new Category() { Id = 1, SortOrder = 1, IsShowOnHome = true, ParentId = null, IsActive = true });
 
             modelBuilder.Entity<CategoryTranslation>().HasData(
-                new CategoryTranslation() { Id = 1, CategoryId = 1, NameCategory = "Coffee Black", LanguageId = "en-US", SeoAlias = "coffee-black", SeoDescription = "Good", SeoTitle = "Product Coffee"},
-                new CategoryTranslation() { Id = 2, CategoryId = 1, NameCategory = "Cà Phê Đen", LanguageId = "vi-VN", SeoAlias = "ca-phe-den", SeoDescription = "Good Drink", SeoTitle = "Sản phầm cà phê" });
+                new CategoryTranslation() { Id = 1, CategoryId = 1, NameCategory = "Coffee", LanguageId = 2, SeoAlias = "coffee-black", SeoDescription = "Good", SeoTitle = "Product Coffee"},
+                new CategoryTranslation() { Id = 2, CategoryId = 1, NameCategory = "Cà Phê", LanguageId = 1, SeoAlias = "ca-phe-den", SeoDescription = "Good Drink", SeoTitle = "Sản phầm cà phê" });
 
             modelBuilder.Entity<Unit>().HasData(
                 new Unit() { Id = 1, IsActive = true });
 
             modelBuilder.Entity<UnitTranslation>().HasData(
-                new UnitTranslation() { Id = 1, UnitId = 1, NameUnit = "Cỡ X", MoreInfo = "", LanguageId = "vi-VN" },
-                new UnitTranslation() { Id = 2, UnitId = 1, NameUnit = "Size X", MoreInfo = "Size X", LanguageId = "en-US" });
+                new UnitTranslation() { Id = 1, UnitId = 1, NameUnit = "Cỡ X", MoreInfo = "", LanguageId = 1 },
+                new UnitTranslation() { Id = 2, UnitId = 1, NameUnit = "Size X", MoreInfo = "Size X", LanguageId = 2 });
 
             var adminId = new Guid("0B64F6F0-9F60-45C9-9E7B-F68CCC3FC57F");
 

@@ -88,7 +88,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            ConcurrencyStamp = "cdfc141e-8d76-416e-b19d-ef8ee4e90386",
+                            ConcurrencyStamp = "445f5181-3284-42ea-9008-217c0696794d",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -96,7 +96,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("c489f858-aabd-4264-96c1-5cdca251d871"),
-                            ConcurrencyStamp = "a0980e26-d652-465e-85ee-a85cee6cfff0",
+                            ConcurrencyStamp = "d92b85bf-568d-4815-b4b7-ce289b6dfa8b",
                             Description = "Staff role",
                             Name = "staff",
                             NormalizedName = "staff"
@@ -104,7 +104,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            ConcurrencyStamp = "9b0281a8-e80d-4f51-aacf-5f058ef016a4",
+                            ConcurrencyStamp = "48fd76d4-3471-4efb-95cb-eb9dfb2612f3",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -200,7 +200,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7bc5d03e-0838-4deb-a385-ab1b48368b11",
+                            ConcurrencyStamp = "22b068cb-961a-4f55-a91a-16a84155a0f8",
                             Dob = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tranquangbhdz@gmail.com",
                             EmailConfirmed = true,
@@ -212,7 +212,7 @@ namespace HikiCoffee.Data.Migrations
                             MoreInfo = "Chùm",
                             NormalizedEmail = "tranquangbhdz@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFtTf7SuC4F1KeMoUZcoOoxN8XgOfZGl5qzFSk0NWJWJirqzSSIxW6unbWPPL5Iz7g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEFp8ZF6YUGXF396YtP7b9356/ImM7IOiJIXbENwaWNn42W5mZkXEpuDK5TPV3UoIQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -344,11 +344,10 @@ namespace HikiCoffee.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("LanguageId")
-                        .IsRequired()
+                    b.Property<int>("LanguageId")
                         .HasMaxLength(5)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(5)");
+                        .HasColumnType("int");
 
                     b.Property<string>("NameCategory")
                         .IsRequired()
@@ -382,8 +381,8 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            LanguageId = "en-US",
-                            NameCategory = "Coffee Black",
+                            LanguageId = 2,
+                            NameCategory = "Coffee",
                             SeoAlias = "coffee-black",
                             SeoDescription = "Good",
                             SeoTitle = "Product Coffee"
@@ -392,8 +391,8 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            LanguageId = "vi-VN",
-                            NameCategory = "Cà Phê Đen",
+                            LanguageId = 1,
+                            NameCategory = "Cà Phê",
                             SeoAlias = "ca-phe-den",
                             SeoDescription = "Good Drink",
                             SeoTitle = "Sản phầm cà phê"
@@ -515,7 +514,14 @@ namespace HikiCoffee.Data.Migrations
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.Language", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
                         .HasMaxLength(5)
                         .IsUnicode(false)
                         .HasColumnType("varchar(5)");
@@ -537,13 +543,15 @@ namespace HikiCoffee.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "vi-VN",
+                            Id = 1,
+                            Code = "vi-VN",
                             IsDefault = true,
                             NameLanguage = "Tiếng Việt"
                         },
                         new
                         {
-                            Id = "en-US",
+                            Id = 2,
+                            Code = "en-US",
                             IsDefault = false,
                             NameLanguage = "English"
                         });
@@ -663,11 +671,10 @@ namespace HikiCoffee.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("LanguageId")
-                        .IsRequired()
+                    b.Property<int>("LanguageId")
                         .HasMaxLength(5)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(5)");
+                        .HasColumnType("int");
 
                     b.Property<string>("NameProduct")
                         .IsRequired()
@@ -826,11 +833,10 @@ namespace HikiCoffee.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("LanguageId")
-                        .IsRequired()
+                    b.Property<int>("LanguageId")
                         .HasMaxLength(5)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(5)");
+                        .HasColumnType("int");
 
                     b.Property<string>("MoreInfo")
                         .HasMaxLength(1000)
@@ -856,7 +862,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 1,
-                            LanguageId = "vi-VN",
+                            LanguageId = 1,
                             MoreInfo = "",
                             NameUnit = "Cỡ X",
                             UnitId = 1
@@ -864,7 +870,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 2,
-                            LanguageId = "en-US",
+                            LanguageId = 2,
                             MoreInfo = "Size X",
                             NameUnit = "Size X",
                             UnitId = 1

@@ -10,7 +10,7 @@
 
         public string MoreInfo { get; set; }
 
-        public string LanguageId { get; set; }
+        public int LanguageId { get; set; }
 
         public Unit Unit { get; set; }
 

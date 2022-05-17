@@ -11,7 +11,9 @@ namespace HikiCoffee.Data.Configurations
             builder.ToTable("Languages");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired().IsUnicode(false).HasMaxLength(5);
+            builder.Property(x => x.Id).UseIdentityColumn();
+
+            builder.Property(x => x.Code).IsRequired(true).IsUnicode(false).HasMaxLength(5);
 
             builder.Property(x => x.NameLanguage).HasMaxLength(50).IsRequired(true);
 

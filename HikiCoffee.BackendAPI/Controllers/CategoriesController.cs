@@ -1,5 +1,4 @@
 ﻿using HikiCoffee.Application.Categories;
-using HikiCoffee.Data.EF;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
@@ -10,21 +9,28 @@ namespace HikiCoffee.BackendAPI.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        private readonly HikiCoffeeDbContext _context;
-
-        public CategoriesController(
-            ICategoryService categoryService, HikiCoffeeDbContext context)
+        public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _context = context;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(string languageId)
+        public async Task<IActionResult> GetAll(int languageId)
         {
             var categories = await _categoryService.GetAll(languageId);
             return Ok(categories);
         }
 
+        [HttpGet("GetById/{languageId}/{categoryId}")]
+        public async Task<IActionResult> GetById(int languageId, int categoryId)
+        {
+            var categories = await _categoryService.GetById(languageId, categoryId);
+
+            if (categories.Id != 0)
+            {
+                return Ok(categories);
+            }
+            return NotFound();
+        }
     }
 }

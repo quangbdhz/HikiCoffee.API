@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HikiCoffee.Data.Migrations
 {
-    public partial class data_design : Migration
+    public partial class db_design_data : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -128,7 +128,9 @@ namespace HikiCoffee.Data.Migrations
                 name: "Languages",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(5)", unicode: false, maxLength: 5, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "varchar(5)", unicode: false, maxLength: 5, nullable: false),
                     NameLanguage = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -252,7 +254,7 @@ namespace HikiCoffee.Data.Migrations
                     SeoDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SeoTitle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     SeoAlias = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
-                    LanguageId = table.Column<string>(type: "varchar(5)", unicode: false, maxLength: 5, nullable: false)
+                    LanguageId = table.Column<int>(type: "int", unicode: false, maxLength: 5, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,7 +334,7 @@ namespace HikiCoffee.Data.Migrations
                     SeoDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SeoTitle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     SeoAlias = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    LanguageId = table.Column<string>(type: "varchar(5)", unicode: false, maxLength: 5, nullable: false)
+                    LanguageId = table.Column<int>(type: "int", unicode: false, maxLength: 5, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -382,7 +384,7 @@ namespace HikiCoffee.Data.Migrations
                     UnitId = table.Column<int>(type: "int", nullable: false),
                     NameUnit = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     MoreInfo = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    LanguageId = table.Column<string>(type: "varchar(5)", unicode: false, maxLength: 5, nullable: false)
+                    LanguageId = table.Column<int>(type: "int", unicode: false, maxLength: 5, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -548,9 +550,9 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "9b0281a8-e80d-4f51-aacf-5f058ef016a4", "Customer role", "customer", "customer" },
-                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "a0980e26-d652-465e-85ee-a85cee6cfff0", "Staff role", "staff", "staff" },
-                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "cdfc141e-8d76-416e-b19d-ef8ee4e90386", "Administrator role", "admin", "admin" }
+                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "48fd76d4-3471-4efb-95cb-eb9dfb2612f3", "Customer role", "customer", "customer" },
+                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "d92b85bf-568d-4815-b4b7-ce289b6dfa8b", "Staff role", "staff", "staff" },
+                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "445f5181-3284-42ea-9008-217c0696794d", "Administrator role", "admin", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -574,13 +576,13 @@ namespace HikiCoffee.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Languages",
-                columns: new[] { "Id", "NameLanguage" },
-                values: new object[] { "en-US", "English" });
+                columns: new[] { "Id", "Code", "IsDefault", "NameLanguage" },
+                values: new object[] { 1, "vi-VN", true, "Tiếng Việt" });
 
             migrationBuilder.InsertData(
                 table: "Languages",
-                columns: new[] { "Id", "IsDefault", "NameLanguage" },
-                values: new object[] { "vi-VN", true, "Tiếng Việt" });
+                columns: new[] { "Id", "Code", "NameLanguage" },
+                values: new object[] { 2, "en-US", "English" });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
@@ -601,15 +603,15 @@ namespace HikiCoffee.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "MoreInfo", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UrlImageUser", "UserName" },
-                values: new object[] { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, "7bc5d03e-0838-4deb-a385-ab1b48368b11", new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquangbhdz@gmail.com", true, "Tran", 1, true, "Quang", false, null, "Chùm", "tranquangbhdz@gmail.com", "admin", "AQAAAAEAACcQAAAAEFtTf7SuC4F1KeMoUZcoOoxN8XgOfZGl5qzFSk0NWJWJirqzSSIxW6unbWPPL5Iz7g==", null, false, "", false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "admin" });
+                values: new object[] { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, "22b068cb-961a-4f55-a91a-16a84155a0f8", new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquangbhdz@gmail.com", true, "Tran", 1, true, "Quang", false, null, "Chùm", "tranquangbhdz@gmail.com", "admin", "AQAAAAEAACcQAAAAEEFp8ZF6YUGXF396YtP7b9356/ImM7IOiJIXbENwaWNn42W5mZkXEpuDK5TPV3UoIQ==", null, false, "", false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "admin" });
 
             migrationBuilder.InsertData(
                 table: "CategoryTranslations",
                 columns: new[] { "Id", "CategoryId", "LanguageId", "NameCategory", "SeoAlias", "SeoDescription", "SeoTitle" },
                 values: new object[,]
                 {
-                    { 1, 1, "en-US", "Coffee Black", "coffee-black", "Good", "Product Coffee" },
-                    { 2, 1, "vi-VN", "Cà Phê Đen", "ca-phe-den", "Good Drink", "Sản phầm cà phê" }
+                    { 1, 1, 2, "Coffee", "coffee-black", "Good", "Product Coffee" },
+                    { 2, 1, 1, "Cà Phê", "ca-phe-den", "Good Drink", "Sản phầm cà phê" }
                 });
 
             migrationBuilder.InsertData(
@@ -617,8 +619,8 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "LanguageId", "MoreInfo", "NameUnit", "UnitId" },
                 values: new object[,]
                 {
-                    { 1, "vi-VN", "", "Cỡ X", 1 },
-                    { 2, "en-US", "Size X", "Size X", 1 }
+                    { 1, 1, "", "Cỡ X", 1 },
+                    { 2, 2, "Size X", "Size X", 1 }
                 });
 
             migrationBuilder.CreateIndex(
