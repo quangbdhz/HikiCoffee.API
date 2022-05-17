@@ -2,7 +2,9 @@
 {
     public class Language
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        public string Code { get; set; }
 
         public string NameLanguage { get; set; }
 

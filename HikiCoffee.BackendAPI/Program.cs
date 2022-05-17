@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using HikiCoffee.Application.Categories;
 using HikiCoffee.Utilities.Constants;
 using Microsoft.Data.SqlClient;
+using HikiCoffee.Application.Languages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<ILanguageService, LanguageService>();
 
 //builder.Services.AddControllers();
 builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());

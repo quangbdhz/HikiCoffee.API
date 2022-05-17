@@ -14,18 +14,8 @@ namespace HikiCoffee.Application.Categories
             _context = context;
         }
 
-        public async Task<List<CategoryViewModel>> GetAll(string languageId)
+        public async Task<List<CategoryViewModel>> GetAll(int languageId)
         {
-
-            var gender = new Gender() { NameGender = "Test", IsActive = true };
-
-            _context.Genders.Add(gender);
-            await _context.SaveChangesAsync();
-
-           
-
-            var gendesr =  _context.UnitTranslations.ToListAsync();
-
             var query = from c in _context.Categories
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
                         where ct.LanguageId == languageId
@@ -37,6 +27,26 @@ namespace HikiCoffee.Application.Categories
                 Name = x.ct.NameCategory,
                 ParentId = x.c.ParentId
             }).ToListAsync();
+        }
+
+        public async Task<CategoryViewModel> GetById(int languageId, int categoryId)
+        {
+            var query = from c in _context.Categories
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
+                        where ct.LanguageId == languageId && c.Id == categoryId
+                        select new { c, ct };
+
+            var category = await query.Select(x => new CategoryViewModel()
+            {
+                Id = x.c.Id,
+                Name = x.ct.NameCategory,
+                ParentId = x.c.ParentId
+            }).FirstOrDefaultAsync();
+
+            if (category != null)
+                return category;
+
+            return new CategoryViewModel() { Id = 0, Name = "Category Is Not Available"};
         }
     }
 }
