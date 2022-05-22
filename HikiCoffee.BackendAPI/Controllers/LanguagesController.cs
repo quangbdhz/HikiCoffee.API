@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class LanguagesController : ControllerBase
     {
