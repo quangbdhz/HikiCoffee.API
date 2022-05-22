@@ -7,3 +7,4 @@ namespace HikiCoffee.Application.Languages
         Task<List<LanguageViewModel>> GetAll();
     }
 }
+
