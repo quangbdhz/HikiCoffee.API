@@ -11,6 +11,13 @@
         public ApiSuccessResult()
         {
             IsSuccessed = true;
+            Message = "Successful";
+        }
+
+        public ApiSuccessResult(string message)
+        {
+            IsSuccessed = true;
+            Message = message;
         }
     }
 }

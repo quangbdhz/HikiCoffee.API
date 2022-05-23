@@ -2,7 +2,9 @@
 {
     public class SystemConstants
     {
-        public const string MainConnectionString = "HikiCoffeeDb";
+        public const string MainConnectionString = "HikiCoffeeDb"; 
+        public static string DomainName { get; set; } = "https://localhost:7227";
+
         public const string CartSession = "CartSession";
 
         public class AppSettings

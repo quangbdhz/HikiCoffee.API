@@ -24,6 +24,11 @@ namespace HikiCoffee.Data.Configurations
 
             builder.HasOne(x => x.Gender).WithMany(x => x.AppUsers).HasForeignKey(x => x.GenderId);
 
+            builder.Property(x => x.RefreshToken).IsRequired(false).HasMaxLength(1000).IsUnicode(false);
+
+            builder.Property(x => x.TokenCreated).IsRequired(false);
+
+            builder.Property(x => x.TokenExpires).IsRequired(false);
         }
     }
 }

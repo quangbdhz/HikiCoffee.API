@@ -7,16 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Products\**" />
+    <EmbeddedResource Remove="Products\**" />
+    <None Remove="Products\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HikiCoffee.Data\HikiCoffee.Data.csproj" />
+    <ProjectReference Include="..\HikiCoffee.Utilities\HikiCoffee.Utilities.csproj" />
     <ProjectReference Include="..\HikiCoffee.ViewModels\HikiCoffee.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Products\" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,20 @@
-﻿using HikiCoffee.ViewModels.Common;
+﻿using HikiCoffee.Data.Entities;
+using HikiCoffee.ViewModels.Common;
 using HikiCoffee.ViewModels.Users;
+using HikiCoffee.ViewModels.Users.RoleDataRequest;
 using HikiCoffee.ViewModels.Users.UserDataRequest;
 
 namespace HikiCoffee.Application.Users
 {
     public interface IUserService
     {
-        Task<ApiResult<string>> Authencate(UserLoginRequest loginRequest);
+        Task<ApiResult<Guid>> Login(UserLoginRequest loginRequest);
 
-        Task<ApiResult<bool>> Register(UserRegisterRequest request);
+        Task<ApiResult<bool>> ConfirmMail(string userName);
+
+        Task<string> CreateToken(AppUser user); 
+
+        Task<ApiResult<UserViewModel>> Register(UserRegisterRequest request);
 
         Task<ApiResult<UserViewModel>> GetById(Guid id);
 
@@ -17,6 +23,14 @@ namespace HikiCoffee.Application.Users
         Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
 
         Task<ApiResult<bool>> Delete(Guid id);
+
+        Task<ApiResult<bool>> RefreshToken(Guid userId, string? refreshToken);
+
+        Task<ApiResult<int>> SetRefreshToken(Guid userId, RefreshTokenViewModel refreshTokenViewModel);
+
+        RefreshTokenViewModel GenerateRefreshTokenViewModel();
+
+        Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
 
     }
 }

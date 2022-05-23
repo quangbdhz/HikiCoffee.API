@@ -20,6 +20,12 @@ namespace HikiCoffee.Data.Entities
 
         public Gender Gender { get; set; }
 
+        public string RefreshToken { get; set; }
+
+        public DateTime? TokenCreated { get; set; }
+
+        public DateTime? TokenExpires { get; set; }
+
         public List<AppointmentSchedule> AppointmentSchedules { get; set; }
 
         public List<Bill> Bills { get; set; }
