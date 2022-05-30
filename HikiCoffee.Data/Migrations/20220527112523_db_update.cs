@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HikiCoffee.Data.Migrations
 {
-    public partial class db_design_data : Migration
+    public partial class db_update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,8 +165,8 @@ namespace HikiCoffee.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NameStatus = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,6 +217,9 @@ namespace HikiCoffee.Data.Migrations
                     MoreInfo = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     GenderId = table.Column<int>(type: "int", nullable: false),
+                    RefreshToken = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: true),
+                    TokenCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TokenExpires = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -330,7 +333,7 @@ namespace HikiCoffee.Data.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     NameProduct = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Details = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(3800)", maxLength: 3800, nullable: true),
                     SeoDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SeoTitle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     SeoAlias = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
@@ -373,6 +376,33 @@ namespace HikiCoffee.Data.Migrations
                         column: x => x.StatusId,
                         principalTable: "Statuses",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusTranslations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    NameStatus = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusTranslations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StatusTranslations_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StatusTranslations_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -550,9 +580,9 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "48fd76d4-3471-4efb-95cb-eb9dfb2612f3", "Customer role", "customer", "customer" },
-                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "d92b85bf-568d-4815-b4b7-ce289b6dfa8b", "Staff role", "staff", "staff" },
-                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "445f5181-3284-42ea-9008-217c0696794d", "Administrator role", "admin", "admin" }
+                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "6468d15f-3a06-4603-af53-f7f8f21bfbba", "Customer role", "customer", "customer" },
+                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "6b5e7a2c-b5c4-4b83-aea6-349187b1b10e", "Staff role", "staff", "staff" },
+                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "1ee11a98-070f-4856-9565-a88093d622d4", "Administrator role", "admin", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -563,7 +593,11 @@ namespace HikiCoffee.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "IsActive", "IsShowOnHome", "ParentId", "SortOrder" },
-                values: new object[] { 1, true, true, null, 1 });
+                values: new object[,]
+                {
+                    { 1, true, true, null, 1 },
+                    { 2, true, true, null, 2 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Genders",
@@ -585,14 +619,24 @@ namespace HikiCoffee.Data.Migrations
                 values: new object[] { 2, "en-US", "English" });
 
             migrationBuilder.InsertData(
-                table: "Statuses",
-                columns: new[] { "Id", "IsActive", "NameStatus" },
+                table: "Products",
+                columns: new[] { "Id", "DateCreated", "IsActive", "IsFeatured", "OriginalPrice", "Price", "Stock", "UrlImageCoverProduct" },
                 values: new object[,]
                 {
-                    { 1, true, "Đã Thanh Toán" },
-                    { 2, true, "Chưa Thanh Toán" },
-                    { 3, true, "Bàn Còn Trống" },
-                    { 4, true, "Bàn Đang Sử Dụng" }
+                    { 1, new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6741), true, true, 100000m, 90000m, 5, "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg" },
+                    { 2, new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6755), true, false, 55000m, 47000m, 15, "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png" },
+                    { 3, new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6756), true, true, 84000m, 72000m, 9, "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Statuses",
+                columns: new[] { "Id", "DateCreated", "IsActive" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1188), true },
+                    { 2, new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1202), true },
+                    { 3, new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1203), true },
+                    { 4, new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1203), true }
                 });
 
             migrationBuilder.InsertData(
@@ -602,16 +646,69 @@ namespace HikiCoffee.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "MoreInfo", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UrlImageUser", "UserName" },
-                values: new object[] { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, "22b068cb-961a-4f55-a91a-16a84155a0f8", new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquangbhdz@gmail.com", true, "Tran", 1, true, "Quang", false, null, "Chùm", "tranquangbhdz@gmail.com", "admin", "AQAAAAEAACcQAAAAEEFp8ZF6YUGXF396YtP7b9356/ImM7IOiJIXbENwaWNn42W5mZkXEpuDK5TPV3UoIQ==", null, false, "", false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "MoreInfo", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "SecurityStamp", "TokenCreated", "TokenExpires", "TwoFactorEnabled", "UrlImageUser", "UserName" },
+                values: new object[] { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, "48781e00-03ef-44e2-8c47-d3bc3e955a57", new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquangbhdz@gmail.com", true, "Tran", 1, true, "Quang", false, null, "Chùm", "tranquangbhdz@gmail.com", "admin", "AQAAAAEAACcQAAAAEJ+KwRlk8EZW1JlbvbNj+Rb5SHEMpPg2EAzf0ZYVc0DLD9Yd/vMZ01IHAWQPe9rV8Q==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "admin" });
 
             migrationBuilder.InsertData(
                 table: "CategoryTranslations",
                 columns: new[] { "Id", "CategoryId", "LanguageId", "NameCategory", "SeoAlias", "SeoDescription", "SeoTitle" },
                 values: new object[,]
                 {
-                    { 1, 1, 2, "Coffee", "coffee-black", "Good", "Product Coffee" },
-                    { 2, 1, 1, "Cà Phê", "ca-phe-den", "Good Drink", "Sản phầm cà phê" }
+                    { 1, 1, 2, "Coffee", "/coffee-black-381831", "Good", "Product Coffee" },
+                    { 2, 1, 1, "Cà Phê", "/ca-phe-den-838442", "Good Drink", "Sản phầm cà phê" },
+                    { 3, 2, 2, "Tea", "/tea-342242", "Good", "Product Tea" },
+                    { 4, 2, 1, "Trà", "/tra-837113", "Good Drink", "Sản phầm trà" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductImages",
+                columns: new[] { "Id", "Caption", "DateCreated", "FileSize", "ProductId", "SortOrder", "UrlImageProduct" },
+                values: new object[,]
+                {
+                    { 1, "image 1", new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6831), 0L, 1, 0, "https://icdn.dantri.com.vn/thumb_w/640/2021/03/04/vi-ca-phe-den-het-nhu-vi-cuoc-songdocx-1614866315610.png" },
+                    { 2, "image 2", new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6833), 0L, 1, 0, "https://artcoffee.vn/wp-content/uploads/2020/09/8-loi-ich-to-lon-cua-viec-uong-ca-phe-den-nguyen-chat-khong-duong.jpg" },
+                    { 3, "image 3", new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6834), 0L, 1, 0, "https://doisongbiz.com/wp-content/uploads/2017/04/bi-quyet-giam-can-nhanh-chong-bang-cafe-den.jpg" },
+                    { 4, "image 1", new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6835), 0L, 2, 0, "https://images.japancentre.com/recipes/pics/16/main/matcha-latte.jpg?1469572822" },
+                    { 5, "image 2", new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6836), 0L, 2, 0, "https://gimmedelicious.com/wp-content/uploads/2018/03/Iced-Matcha-Latte2.jpg" },
+                    { 6, "image 1", new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6837), 0L, 3, 0, "https://cdn.tgdd.vn/2021/11/CookDish/americano-la-gi-nguon-goc-cach-pha-americano-don-gian-va-avt-1200x676.jpg" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductInCategories",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 3 },
+                    { 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductTranslations",
+                columns: new[] { "Id", "Description", "Details", "LanguageId", "NameProduct", "ProductId", "SeoAlias", "SeoDescription", "SeoTitle" },
+                values: new object[,]
+                {
+                    { 1, "Cà phê đen thơm ngon từng vị", "<h2><span style='font-size: 95%;'>Cà phê đen đóng chai nguyên chất tại Hà Nội</span></h2><p>Mua<strong> cà phê đen đóng chai </strong>online vào thời điểm này đang là lựa chọn số một cho những người yêu thích cà phê. Tình hình chống dịch của Hà Nội đang rất căng thẳng. Hàng quán thì đóng cửa, đi lại bị hạn chế, và không được tụ tập đông người. Nên cách tốt nhất vẫn là ngồi ở nhà hay ở chỗ làm và mua online một ly cà phê để thưởng thức</p>", 1, "Cà phê đen", 1, "/ca-phe-den-193412", "Cafe đen bạn của mọi nhà", "Cafe đen đậm vị thơm ngon" },
+                    { 2, "Black Coffee Is The Best", "Black Coffee", 2, "Black Coffee", 1, "/black-coffee-918413", "Coffee", "Black Coffee" },
+                    { 3, "Trà xanh siêu ngon", "Trà xanh Matcha siêu <strong>thơm</strong> ngon", 1, "Trà xanh Matcha", 2, "/tra-xanh-matcha-741413", "Trà xanh Matcha", "Trà xanh Matcha" },
+                    { 4, "Matcha Green Tea", "Matcha Green Tea Is The Best", 2, "Matcha Green Tea", 2, "/matcha-green-tea-414131", "Matcha Green Tea", "Matcha Green Tea" },
+                    { 5, "Cà phê Americano", "Cà phê Americano Ngon", 1, "Cà phê Americano", 3, "/ca-phe-americano-371471", "Cà phê Americano", "Cà phê Americano" },
+                    { 6, "Americano", "Americano", 2, "Americano", 3, "/americano-347272", "Americano", "Americano" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StatusTranslations",
+                columns: new[] { "Id", "LanguageId", "NameStatus", "StatusId" },
+                values: new object[,]
+                {
+                    { 1, 1, "Đã Thanh Toán", 1 },
+                    { 2, 2, "Paid", 1 },
+                    { 3, 1, "Chưa Thanh Toán", 2 },
+                    { 4, 2, "Unpaid", 2 },
+                    { 5, 1, "Bàn Còn Trống", 3 },
+                    { 6, 2, "Tables Are Empty", 3 },
+                    { 7, 1, "Bàn Đang Sử Dụng", 4 },
+                    { 8, 2, "Table In Use", 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -724,6 +821,16 @@ namespace HikiCoffee.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StatusTranslations_LanguageId",
+                table: "StatusTranslations",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusTranslations_StatusId",
+                table: "StatusTranslations",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UnitTranslations_LanguageId",
                 table: "UnitTranslations",
                 column: "LanguageId");
@@ -774,6 +881,9 @@ namespace HikiCoffee.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductTranslations");
+
+            migrationBuilder.DropTable(
+                name: "StatusTranslations");
 
             migrationBuilder.DropTable(
                 name: "UnitTranslations");

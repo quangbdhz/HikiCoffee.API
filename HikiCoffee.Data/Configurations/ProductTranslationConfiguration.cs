@@ -15,7 +15,7 @@ namespace HikiCoffee.Data.Configurations
 
             builder.Property(x => x.NameProduct).IsRequired(true).HasMaxLength(200);
 
-            builder.Property(x => x.Details).HasMaxLength(500).IsRequired(false);
+            builder.Property(x => x.Details).HasMaxLength(3800).IsRequired(false);
 
             builder.Property(x => x.Description).IsRequired(false).HasMaxLength(1000);
 
