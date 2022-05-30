@@ -88,7 +88,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            ConcurrencyStamp = "445f5181-3284-42ea-9008-217c0696794d",
+                            ConcurrencyStamp = "1ee11a98-070f-4856-9565-a88093d622d4",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -96,7 +96,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("c489f858-aabd-4264-96c1-5cdca251d871"),
-                            ConcurrencyStamp = "d92b85bf-568d-4815-b4b7-ce289b6dfa8b",
+                            ConcurrencyStamp = "6b5e7a2c-b5c4-4b83-aea6-349187b1b10e",
                             Description = "Staff role",
                             Name = "staff",
                             NormalizedName = "staff"
@@ -104,7 +104,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            ConcurrencyStamp = "48fd76d4-3471-4efb-95cb-eb9dfb2612f3",
+                            ConcurrencyStamp = "6468d15f-3a06-4603-af53-f7f8f21bfbba",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -175,8 +175,19 @@ namespace HikiCoffee.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RefreshToken")
+                        .HasMaxLength(1000)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(1000)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("TokenExpires")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -200,7 +211,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "22b068cb-961a-4f55-a91a-16a84155a0f8",
+                            ConcurrencyStamp = "48781e00-03ef-44e2-8c47-d3bc3e955a57",
                             Dob = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tranquangbhdz@gmail.com",
                             EmailConfirmed = true,
@@ -212,7 +223,7 @@ namespace HikiCoffee.Data.Migrations
                             MoreInfo = "Chùm",
                             NormalizedEmail = "tranquangbhdz@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEFp8ZF6YUGXF396YtP7b9356/ImM7IOiJIXbENwaWNn42W5mZkXEpuDK5TPV3UoIQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ+KwRlk8EZW1JlbvbNj+Rb5SHEMpPg2EAzf0ZYVc0DLD9Yd/vMZ01IHAWQPe9rV8Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -330,6 +341,13 @@ namespace HikiCoffee.Data.Migrations
                             IsActive = true,
                             IsShowOnHome = true,
                             SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 2
                         });
                 });
 
@@ -383,7 +401,7 @@ namespace HikiCoffee.Data.Migrations
                             CategoryId = 1,
                             LanguageId = 2,
                             NameCategory = "Coffee",
-                            SeoAlias = "coffee-black",
+                            SeoAlias = "/coffee-black-381831",
                             SeoDescription = "Good",
                             SeoTitle = "Product Coffee"
                         },
@@ -393,9 +411,29 @@ namespace HikiCoffee.Data.Migrations
                             CategoryId = 1,
                             LanguageId = 1,
                             NameCategory = "Cà Phê",
-                            SeoAlias = "ca-phe-den",
+                            SeoAlias = "/ca-phe-den-838442",
                             SeoDescription = "Good Drink",
                             SeoTitle = "Sản phầm cà phê"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            LanguageId = 2,
+                            NameCategory = "Tea",
+                            SeoAlias = "/tea-342242",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Tea"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            LanguageId = 1,
+                            NameCategory = "Trà",
+                            SeoAlias = "/tra-837113",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm trà"
                         });
                 });
 
@@ -602,6 +640,44 @@ namespace HikiCoffee.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6741),
+                            IsActive = true,
+                            IsFeatured = true,
+                            OriginalPrice = 100000m,
+                            Price = 90000m,
+                            Stock = 5,
+                            UrlImageCoverProduct = "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg",
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6755),
+                            IsActive = true,
+                            IsFeatured = false,
+                            OriginalPrice = 55000m,
+                            Price = 47000m,
+                            Stock = 15,
+                            UrlImageCoverProduct = "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png",
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6756),
+                            IsActive = true,
+                            IsFeatured = true,
+                            OriginalPrice = 84000m,
+                            Price = 72000m,
+                            Stock = 9,
+                            UrlImageCoverProduct = "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg",
+                            ViewCount = 0
+                        });
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.ProductImage", b =>
@@ -638,6 +714,68 @@ namespace HikiCoffee.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Caption = "image 1",
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6831),
+                            FileSize = 0L,
+                            ProductId = 1,
+                            SortOrder = 0,
+                            UrlImageProduct = "https://icdn.dantri.com.vn/thumb_w/640/2021/03/04/vi-ca-phe-den-het-nhu-vi-cuoc-songdocx-1614866315610.png"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Caption = "image 2",
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6833),
+                            FileSize = 0L,
+                            ProductId = 1,
+                            SortOrder = 0,
+                            UrlImageProduct = "https://artcoffee.vn/wp-content/uploads/2020/09/8-loi-ich-to-lon-cua-viec-uong-ca-phe-den-nguyen-chat-khong-duong.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Caption = "image 3",
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6834),
+                            FileSize = 0L,
+                            ProductId = 1,
+                            SortOrder = 0,
+                            UrlImageProduct = "https://doisongbiz.com/wp-content/uploads/2017/04/bi-quyet-giam-can-nhanh-chong-bang-cafe-den.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Caption = "image 1",
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6835),
+                            FileSize = 0L,
+                            ProductId = 2,
+                            SortOrder = 0,
+                            UrlImageProduct = "https://images.japancentre.com/recipes/pics/16/main/matcha-latte.jpg?1469572822"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Caption = "image 2",
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6836),
+                            FileSize = 0L,
+                            ProductId = 2,
+                            SortOrder = 0,
+                            UrlImageProduct = "https://gimmedelicious.com/wp-content/uploads/2018/03/Iced-Matcha-Latte2.jpg"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Caption = "image 1",
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6837),
+                            FileSize = 0L,
+                            ProductId = 3,
+                            SortOrder = 0,
+                            UrlImageProduct = "https://cdn.tgdd.vn/2021/11/CookDish/americano-la-gi-nguon-goc-cach-pha-americano-don-gian-va-avt-1200x676.jpg"
+                        });
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.ProductInCategory", b =>
@@ -653,6 +791,23 @@ namespace HikiCoffee.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductInCategories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            ProductId = 3
+                        });
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.ProductTranslation", b =>
@@ -668,8 +823,8 @@ namespace HikiCoffee.Data.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Details")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(3800)
+                        .HasColumnType("nvarchar(3800)");
 
                     b.Property<int>("LanguageId")
                         .HasMaxLength(5)
@@ -704,6 +859,80 @@ namespace HikiCoffee.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductTranslations", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Cà phê đen thơm ngon từng vị",
+                            Details = "<h2><span style='font-size: 95%;'>Cà phê đen đóng chai nguyên chất tại Hà Nội</span></h2><p>Mua<strong> cà phê đen đóng chai </strong>online vào thời điểm này đang là lựa chọn số một cho những người yêu thích cà phê. Tình hình chống dịch của Hà Nội đang rất căng thẳng. Hàng quán thì đóng cửa, đi lại bị hạn chế, và không được tụ tập đông người. Nên cách tốt nhất vẫn là ngồi ở nhà hay ở chỗ làm và mua online một ly cà phê để thưởng thức</p>",
+                            LanguageId = 1,
+                            NameProduct = "Cà phê đen",
+                            ProductId = 1,
+                            SeoAlias = "/ca-phe-den-193412",
+                            SeoDescription = "Cafe đen bạn của mọi nhà",
+                            SeoTitle = "Cafe đen đậm vị thơm ngon"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Black Coffee Is The Best",
+                            Details = "Black Coffee",
+                            LanguageId = 2,
+                            NameProduct = "Black Coffee",
+                            ProductId = 1,
+                            SeoAlias = "/black-coffee-918413",
+                            SeoDescription = "Coffee",
+                            SeoTitle = "Black Coffee"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Trà xanh siêu ngon",
+                            Details = "Trà xanh Matcha siêu <strong>thơm</strong> ngon",
+                            LanguageId = 1,
+                            NameProduct = "Trà xanh Matcha",
+                            ProductId = 2,
+                            SeoAlias = "/tra-xanh-matcha-741413",
+                            SeoDescription = "Trà xanh Matcha",
+                            SeoTitle = "Trà xanh Matcha"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Matcha Green Tea",
+                            Details = "Matcha Green Tea Is The Best",
+                            LanguageId = 2,
+                            NameProduct = "Matcha Green Tea",
+                            ProductId = 2,
+                            SeoAlias = "/matcha-green-tea-414131",
+                            SeoDescription = "Matcha Green Tea",
+                            SeoTitle = "Matcha Green Tea"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Cà phê Americano",
+                            Details = "Cà phê Americano Ngon",
+                            LanguageId = 1,
+                            NameProduct = "Cà phê Americano",
+                            ProductId = 3,
+                            SeoAlias = "/ca-phe-americano-371471",
+                            SeoDescription = "Cà phê Americano",
+                            SeoTitle = "Cà phê Americano"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Americano",
+                            Details = "Americano",
+                            LanguageId = 2,
+                            NameProduct = "Americano",
+                            ProductId = 4,
+                            SeoAlias = "/americano-347272",
+                            SeoDescription = "Americano",
+                            SeoTitle = "Americano"
+                        });
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.Status", b =>
@@ -714,15 +943,13 @@ namespace HikiCoffee.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
-
-                    b.Property<string>("NameStatus")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -732,26 +959,112 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 1,
-                            IsActive = true,
-                            NameStatus = "Đã Thanh Toán"
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1188),
+                            IsActive = true
                         },
                         new
                         {
                             Id = 2,
-                            IsActive = true,
-                            NameStatus = "Chưa Thanh Toán"
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1202),
+                            IsActive = true
                         },
                         new
                         {
                             Id = 3,
-                            IsActive = true,
-                            NameStatus = "Bàn Còn Trống"
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1203),
+                            IsActive = true
                         },
                         new
                         {
                             Id = 4,
-                            IsActive = true,
-                            NameStatus = "Bàn Đang Sử Dụng"
+                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1203),
+                            IsActive = true
+                        });
+                });
+
+            modelBuilder.Entity("HikiCoffee.Data.Entities.StatusTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameStatus")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("StatusTranslations", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LanguageId = 1,
+                            NameStatus = "Đã Thanh Toán",
+                            StatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LanguageId = 2,
+                            NameStatus = "Paid",
+                            StatusId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LanguageId = 1,
+                            NameStatus = "Chưa Thanh Toán",
+                            StatusId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LanguageId = 2,
+                            NameStatus = "Unpaid",
+                            StatusId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LanguageId = 1,
+                            NameStatus = "Bàn Còn Trống",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LanguageId = 2,
+                            NameStatus = "Tables Are Empty",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LanguageId = 1,
+                            NameStatus = "Bàn Đang Sử Dụng",
+                            StatusId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LanguageId = 2,
+                            NameStatus = "Table In Use",
+                            StatusId = 4
                         });
                 });
 
@@ -1163,6 +1476,25 @@ namespace HikiCoffee.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("HikiCoffee.Data.Entities.StatusTranslation", b =>
+                {
+                    b.HasOne("HikiCoffee.Data.Entities.Language", "Language")
+                        .WithMany("StatusTranslations")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HikiCoffee.Data.Entities.Status", "Status")
+                        .WithMany("StatusTranslations")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Status");
+                });
+
             modelBuilder.Entity("HikiCoffee.Data.Entities.UnitTranslation", b =>
                 {
                     b.HasOne("HikiCoffee.Data.Entities.Language", "Language")
@@ -1221,6 +1553,8 @@ namespace HikiCoffee.Data.Migrations
 
                     b.Navigation("ProductTranslations");
 
+                    b.Navigation("StatusTranslations");
+
                     b.Navigation("UnitTranslations");
                 });
 
@@ -1246,6 +1580,8 @@ namespace HikiCoffee.Data.Migrations
                     b.Navigation("CoffeeTables");
 
                     b.Navigation("ImportProducts");
+
+                    b.Navigation("StatusTranslations");
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.Suplier", b =>

@@ -15,5 +15,7 @@
         public List<CategoryTranslation> CategoryTranslations { get; set; }
 
         public List<ProductTranslation> ProductTranslations { get; set; }
+
+        public List<StatusTranslation> StatusTranslations { get; set; }
     }
 }

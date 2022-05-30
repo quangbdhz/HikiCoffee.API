@@ -13,6 +13,7 @@ using HikiCoffee.Utilities.Constants;
 using Microsoft.Data.SqlClient;
 using HikiCoffee.Application.Languages;
 using HikiCoffee.Application.MailConfirms;
+using HikiCoffee.Application.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ILanguageService, LanguageService>();
 builder.Services.AddTransient<IMailConfirmService, MailConfirmService>();
+builder.Services.AddTransient<IProducService, ProductService>();
 
 //builder.Services.AddControllers();
 builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());

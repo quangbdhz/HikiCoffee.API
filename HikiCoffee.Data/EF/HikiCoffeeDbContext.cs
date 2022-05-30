@@ -33,6 +33,7 @@ namespace HikiCoffee.Data.EF
             modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new StatusConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new SuplierConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new UnitTranslationConfiguration());
@@ -81,6 +82,8 @@ namespace HikiCoffee.Data.EF
         public DbSet<ProductTranslation> ProductTranslations { get; set; }
 
         public DbSet<Status> Statuses { get; set; }
+
+        public DbSet<StatusTranslation> StatusTranslations { get; set; }
 
         public DbSet<Suplier> Supliers { get; set; }
 

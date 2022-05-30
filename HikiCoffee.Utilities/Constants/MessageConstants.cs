@@ -12,5 +12,7 @@
 
         public static string UserConfirmMailError = "Email verification failed";
         public static string UserDoesNotExist = "User Does Not Exist";
+
+        public static string NotFound = " Is Not Found";
     }
 }
