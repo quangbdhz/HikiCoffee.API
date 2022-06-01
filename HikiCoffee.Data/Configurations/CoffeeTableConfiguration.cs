@@ -20,6 +20,10 @@ namespace HikiCoffee.Data.Configurations
             builder.Property(x => x.ExpirationTime).IsRequired(false);
 
             builder.Property(x => x.IsActive).HasDefaultValue(true).IsRequired(true);
+
+            builder.HasOne(x => x.Status).WithMany(x => x.CoffeeTables).HasForeignKey(x => x.StatusId);
+
+
         }
     }
 }

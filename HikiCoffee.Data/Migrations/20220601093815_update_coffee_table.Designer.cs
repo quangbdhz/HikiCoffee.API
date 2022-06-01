@@ -4,6 +4,7 @@ using HikiCoffee.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HikiCoffee.Data.Migrations
 {
     [DbContext(typeof(HikiCoffeeDbContext))]
-    partial class HikiCoffeeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220601093815_update_coffee_table")]
+    partial class update_coffee_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
