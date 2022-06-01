@@ -1,22 +1,20 @@
-using HikiCoffee.Data.EF;
-using HikiCoffee.Data.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
-using HikiCoffee.ViewModels.Users.UserRequestValidator;
-using HikiCoffee.Application.Users;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using HikiCoffee.Application.Categories;
-using HikiCoffee.Utilities.Constants;
-using Microsoft.Data.SqlClient;
+using HikiCoffee.Application.ImportProducts;
 using HikiCoffee.Application.Languages;
 using HikiCoffee.Application.MailConfirms;
 using HikiCoffee.Application.Products;
-using HikiCoffee.Application.Supliers;
-using HikiCoffee.Application.Uses;
 using HikiCoffee.Application.UnitTranslations;
+using HikiCoffee.Application.Users;
+using HikiCoffee.Application.Uses;
+using HikiCoffee.Data.EF;
+using HikiCoffee.Data.Entities;
+using HikiCoffee.ViewModels.Users.UserRequestValidator;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +42,7 @@ builder.Services.AddTransient<IMailConfirmService, MailConfirmService>();
 builder.Services.AddTransient<IProducService, ProductService>();
 builder.Services.AddTransient<IUnitService, UnitService>();
 builder.Services.AddTransient<IUnitTranslationService, UnitTranslationService>();
+builder.Services.AddTransient<IImportProductService, ImportProductService>();
 
 //builder.Services.AddControllers();
 builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
