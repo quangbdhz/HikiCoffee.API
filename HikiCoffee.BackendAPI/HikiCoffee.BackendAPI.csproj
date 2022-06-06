@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HikiCoffee.Application\HikiCoffee.Application.csproj" />
-    <ProjectReference Include="..\HikiCoffee.Data\HikiCoffee.Data.csproj" />
     <ProjectReference Include="..\HikiCoffee.Utilities\HikiCoffee.Utilities.csproj" />
     <ProjectReference Include="..\HikiCoffee.ViewModels\HikiCoffee.ViewModels.csproj" />
   </ItemGroup>

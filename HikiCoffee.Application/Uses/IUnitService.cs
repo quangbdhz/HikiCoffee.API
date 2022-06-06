@@ -7,6 +7,8 @@ namespace HikiCoffee.Application.Uses
     {
         Task<List<UnitViewModel>> GetAll(int languageId);
 
+        Task<PagedResult<UnitManagementViewModel>> GetPagingUnitManagements(PagingRequestBase request);
+
         Task<ApiResult<UnitViewModel?>> GetById(int id, int languageId);
 
         Task<ApiResult<bool>> AddUnit();

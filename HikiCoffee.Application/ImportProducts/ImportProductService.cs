@@ -169,7 +169,7 @@ namespace HikiCoffee.Application.ImportProducts
 
                 var categoryViewModels = await queryCategoryViewModel.Select(x => new CategoryViewModel() { Id = x.ct.CategoryId, Name = x.ct.NameCategory, ParentId = 0 }).ToListAsync();
 
-                importProductViewModel.Product = new ProductViewModel(product, productTranslation, categoryViewModels);
+                importProductViewModel.Product = SetProductViewModel(product, productTranslation, categoryViewModels);
                 #endregion
 
                 #region query suplier
@@ -214,5 +214,33 @@ namespace HikiCoffee.Application.ImportProducts
                 return new ApiErrorResult<ImportProductViewModel?>(ex.Message);
             }
         }
+
+        public static ProductViewModel SetProductViewModel(Product product, ProductTranslation productTranslation, IList<CategoryViewModel>? categories)
+        {
+            var productViewModel = new ProductViewModel()
+            {
+                Id = product.Id,
+                UrlImageCoverProduct = product.UrlImageCoverProduct,
+                DateCreated = product.DateCreated,
+                Description = productTranslation.Description,
+                IsActive = product.IsActive,
+                Details = productTranslation.Details,
+                IsFeatured = product.IsFeatured,
+                LanguageId = productTranslation.LanguageId,
+                NameProduct = productTranslation.NameProduct,
+                OriginalPrice = product.OriginalPrice,
+                Price = product.Price,
+                SeoAlias = productTranslation.SeoAlias,
+                SeoDescription = productTranslation.SeoDescription,
+                SeoTitle = productTranslation.SeoTitle,
+                Stock = product.Stock,
+                ViewCount = product.ViewCount,
+                Categories = categories
+            };
+
+            return productViewModel;
+        }
+
+
     }
 }

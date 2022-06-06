@@ -46,7 +46,7 @@ namespace HikiCoffee.Application.Products
 
             var categoryViewModels = await queryCategoryViewModel.Select(x => new CategoryViewModel() { Id = x.ct.CategoryId, Name = x.ct.NameCategory, ParentId = 0 }).ToListAsync();
 
-            return new ProductViewModel(product, productTranslation, categoryViewModels);
+            return SetProductViewModel(product, productTranslation, categoryViewModels);
         }
 
         public async Task<ProductViewModel?> GetBySeoAlias(string seoAlias)
@@ -70,7 +70,7 @@ namespace HikiCoffee.Application.Products
 
             var categoryViewModels = await queryCategoryViewModel.Select(x => new CategoryViewModel() { Id = x.ct.CategoryId, Name = x.ct.NameCategory, ParentId = 0 }).ToListAsync();
 
-            return new ProductViewModel(product, productTranslation, categoryViewModels);
+            return SetProductViewModel(product, productTranslation, categoryViewModels);
         }
 
         public async Task<PagedResult<ProductViewModel>> GetProductViewModelByOption(ProductPagingRequest productPagingRequest, int option)
@@ -98,7 +98,7 @@ namespace HikiCoffee.Application.Products
             }
 
             var data = await query.Skip((productPagingRequest.PageIndex - 1) * productPagingRequest.PageSize).Take(productPagingRequest.PageSize)
-                    .Select(x => new ProductViewModel(x.p, x.pt, null)).ToListAsync();
+                    .Select(x => SetProductViewModel(x.p, x.pt, null)).ToListAsync();
 
             int totalRow = await query.CountAsync();
 
@@ -113,34 +113,31 @@ namespace HikiCoffee.Application.Products
             return pagedResult;
         }
 
-        public async Task<ApiResult<bool>> AddProduct(ProductCreateRequest productCreateRequest)
+        public async Task<ApiResult<int>> AddProduct(ProductCreateRequest productCreateRequest)
         {
-            var product = new Product() { UrlImageCoverProduct = productCreateRequest.UrlImageCoverProduct, Price = productCreateRequest.Price, OriginalPrice = productCreateRequest.Price, Stock = 0, ViewCount = 0, DateCreated = DateTime.Now, IsActive = true, IsFeatured = productCreateRequest.IsFeatured };
+            var product = new Product()
+            {
+                UrlImageCoverProduct = productCreateRequest.UrlImageCoverProduct,
+                Price = productCreateRequest.Price,
+                OriginalPrice = productCreateRequest.Price,
+                Stock = 0,
+                ViewCount = 0,
+                DateCreated = DateTime.Now,
+                IsActive = true,
+                IsFeatured = productCreateRequest.IsFeatured
+            };
+
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            var productTranslation = new ProductTranslation() { ProductId = product.Id, LanguageId = productCreateRequest.LanguageId, Description = productCreateRequest.Description, Details = productCreateRequest.Details, NameProduct = productCreateRequest.NameProduct, SeoDescription = productCreateRequest.SeoDescription, SeoAlias = GetSeoAlias(productCreateRequest.NameProduct), SeoTitle = productCreateRequest.SeoTitle };
-            await _context.ProductTranslations.AddAsync(productTranslation);
-            await _context.SaveChangesAsync();
 
-            foreach (var item in productCreateRequest.CategoryIds)
-            {
-                var productInCategory = new ProductInCategory() { CategoryId = item, ProductId = product.Id };
-                await _context.ProductInCategories.AddAsync(productInCategory);
-                await _context.SaveChangesAsync();
-            }
-
-            return new ApiSuccessResult<bool>();
+            return new ApiSuccessResult<int>(product.Id);
         }
 
-        public async Task<ApiResult<bool>> UpdateProduct(ProductUpdateRequest productUpdateRequest, int currentLanguageId)
+        public async Task<ApiResult<bool>> UpdateProduct(ProductUpdateRequest productUpdateRequest)
         {
             try
             {
-                var checkLanguage = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == productUpdateRequest.Id && x.LanguageId == productUpdateRequest.LanguageId);
-                if (checkLanguage != null && currentLanguageId != productUpdateRequest.LanguageId)
-                    return new ApiErrorResult<bool>("Product Translation has version Language");
-
                 var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == productUpdateRequest.Id);
                 if (product == null)
                     return new ApiErrorResult<bool>("Product" + MessageConstants.NotFound);
@@ -151,40 +148,10 @@ namespace HikiCoffee.Application.Products
                 product.IsFeatured = productUpdateRequest.IsFeatured;
                 await _context.SaveChangesAsync();
 
-                var productTranslation = await _context.ProductTranslations.SingleOrDefaultAsync(x => x.ProductId == product.Id && x.LanguageId == currentLanguageId);
-                if (productTranslation == null)
-                    return new ApiErrorResult<bool>("Product Translation" + MessageConstants.NotFound);
-
-                productTranslation.NameProduct = productUpdateRequest.NameProduct;
-                productTranslation.Description = productUpdateRequest.Description;
-                productTranslation.SeoTitle = productUpdateRequest.SeoTitle;
-                productTranslation.SeoDescription = productUpdateRequest.SeoDescription;
-                productTranslation.Details = productUpdateRequest.Details;
-                productTranslation.SeoAlias = GetSeoAlias(productUpdateRequest.NameProduct);
-                productTranslation.LanguageId = productUpdateRequest.LanguageId;
-                await _context.SaveChangesAsync();
-
-                while (true)
-                {
-                    var productInCategory = await _context.ProductInCategories.FirstOrDefaultAsync(x => x.ProductId == productUpdateRequest.Id);
-                    if (productInCategory == null)
-                        break;
-
-                    _context.ProductInCategories.Remove(productInCategory);
-                    await _context.SaveChangesAsync();
-                }
-
-                foreach(int item in productUpdateRequest.Categories)
-                {
-                    var newProductInCategories = new ProductInCategory() { ProductId = productUpdateRequest.Id, CategoryId = item };
-                    await _context.ProductInCategories.AddAsync(newProductInCategories);
-                    await _context.SaveChangesAsync();
-                }
-
                 return new ApiSuccessResult<bool>("Update Product is success");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new ApiErrorResult<bool>(ex.Message);
             }
@@ -203,7 +170,7 @@ namespace HikiCoffee.Application.Products
 
                 return new ApiSuccessResult<bool>("Add ViewCount Product is success");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new ApiErrorResult<bool>(ex.Message);
             }
@@ -226,6 +193,60 @@ namespace HikiCoffee.Application.Products
             {
                 return new ApiErrorResult<bool>(ex.Message);
             }
+        }
+
+        public static ProductViewModel SetProductViewModel(Product product, ProductTranslation productTranslation, IList<CategoryViewModel>? categories)
+        {
+            var productViewModel = new ProductViewModel()
+            {
+                Id = product.Id,
+                UrlImageCoverProduct = product.UrlImageCoverProduct,
+                DateCreated = product.DateCreated,
+                Description = productTranslation.Description,
+                IsActive = product.IsActive,
+                Details = productTranslation.Details,
+                IsFeatured = product.IsFeatured,
+                LanguageId = productTranslation.LanguageId,
+                NameProduct = productTranslation.NameProduct,
+                OriginalPrice = product.OriginalPrice,
+                Price = product.Price,
+                SeoAlias = productTranslation.SeoAlias,
+                SeoDescription = productTranslation.SeoDescription,
+                SeoTitle = productTranslation.SeoTitle,
+                Stock = product.Stock,
+                ViewCount = product.ViewCount,
+                Categories = categories
+            };
+
+            return productViewModel;
+        }
+
+        public async Task<PagedResult<ProductManagementViewModel>> GetPagingProductManagements(PagingRequestBase request)
+        {
+            var products = await _context.Products.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).Select(x => new ProductManagementViewModel()
+            {
+                Id = x.Id,
+                DateCreated = x.DateCreated,
+                IsActive = x.IsActive,
+                IsFeatured = x.IsFeatured,
+                OriginalPrice = x.OriginalPrice,
+                Price = x.Price,
+                Stock = x.Stock,
+                UrlImageCoverProduct = x.UrlImageCoverProduct,
+                ViewCount = x.ViewCount
+            }).ToListAsync();
+
+            int totalRow = products.Count();
+
+            var pagedResult = new PagedResult<ProductManagementViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
+                Items = products
+            };
+
+            return pagedResult;
         }
     }
 }
