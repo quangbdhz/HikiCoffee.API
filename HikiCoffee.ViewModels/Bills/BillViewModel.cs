@@ -1,6 +1,8 @@
-﻿namespace HikiCoffee.Data.Entities
+﻿using HikiCoffee.ViewModels.BillInfos;
+
+namespace HikiCoffee.ViewModels.Bills
 {
-    public class Bill
+    public class BillViewModel
     {
         public int Id { get; set; }
 
@@ -16,14 +18,6 @@
 
         public double TotalPayPrice { get; set; }
 
-        public int StatusId { get; set; }
-
-        public CoffeeTable CoffeeTable { get; set; }
-
-        public AppUser AppUser { get; set; }
-
-        public Status Status { get; set; }
-
-        public List<BillInfo> BillInfos { get; set; }
+        public List<BillInfoViewModel?> BillInfos { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 using FluentValidation.AspNetCore;
+using HikiCoffee.Application.BillInfos;
+using HikiCoffee.Application.Bills;
 using HikiCoffee.Application.Categories;
 using HikiCoffee.Application.CoffeeTables;
 using HikiCoffee.Application.ImportProducts;
@@ -45,6 +47,8 @@ builder.Services.AddTransient<IUnitService, UnitService>();
 builder.Services.AddTransient<IUnitTranslationService, UnitTranslationService>();
 builder.Services.AddTransient<IImportProductService, ImportProductService>();
 builder.Services.AddTransient<ICoffeeTableService, CoffeeTableService>();
+builder.Services.AddTransient<IBillInfoService, BillInfoService>();
+builder.Services.AddTransient<IBillService, BillService>();
 
 //builder.Services.AddControllers();
 builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());

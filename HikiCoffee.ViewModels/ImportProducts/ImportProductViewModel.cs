@@ -1,4 +1,6 @@
-﻿using HikiCoffee.Data.Entities;
+﻿using HikiCoffee.ViewModels.Products;
+using HikiCoffee.ViewModels.Supliers;
+using HikiCoffee.ViewModels.Users;
 
 namespace HikiCoffee.ViewModels.ImportProducts
 {
@@ -12,12 +14,12 @@ namespace HikiCoffee.ViewModels.ImportProducts
 
         public int PriceImportProduct { get; set; }
 
+        public bool IsGetById { get; set; } = true;
 
+        public UserViewModel User { get; set; }
 
-        public AppUser AppUser { get; set; }
+        public ProductViewModel Product { get; set; }
 
-        public Product Product { get; set; }
-
-        public Suplier Suplier { get; set; }
+        public SuplierViewModel Suplier { get; set; }
     }
 }

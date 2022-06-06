@@ -25,6 +25,7 @@ namespace HikiCoffee.Data.Configurations
 
             builder.HasOne(x => x.AppUser).WithMany(x => x.Bills).HasForeignKey(x => x.UserPaymentId);
 
+            builder.HasOne(x => x.Status).WithMany(x => x.Bills).HasForeignKey(x => x.StatusId);
 
         }
     }

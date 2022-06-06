@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HikiCoffee.Data.Migrations
 {
     [DbContext(typeof(HikiCoffeeDbContext))]
-    [Migration("20220527112523_db_update")]
-    partial class db_update
+    [Migration("20220603143743_update_db")]
+    partial class update_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,7 +90,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            ConcurrencyStamp = "1ee11a98-070f-4856-9565-a88093d622d4",
+                            ConcurrencyStamp = "4d3d8934-54ba-4145-8d80-328d8179b718",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -98,7 +98,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("c489f858-aabd-4264-96c1-5cdca251d871"),
-                            ConcurrencyStamp = "6b5e7a2c-b5c4-4b83-aea6-349187b1b10e",
+                            ConcurrencyStamp = "34b4e71e-6506-437d-8eef-2a11c2713fc0",
                             Description = "Staff role",
                             Name = "staff",
                             NormalizedName = "staff"
@@ -106,7 +106,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            ConcurrencyStamp = "6468d15f-3a06-4603-af53-f7f8f21bfbba",
+                            ConcurrencyStamp = "8a641e1e-dd0d-43ef-a49e-097e037f7a37",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -213,7 +213,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48781e00-03ef-44e2-8c47-d3bc3e955a57",
+                            ConcurrencyStamp = "c71d9160-b5bd-49a1-ae0c-1dc3bad1b486",
                             Dob = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tranquangbhdz@gmail.com",
                             EmailConfirmed = true,
@@ -225,7 +225,7 @@ namespace HikiCoffee.Data.Migrations
                             MoreInfo = "Chùm",
                             NormalizedEmail = "tranquangbhdz@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ+KwRlk8EZW1JlbvbNj+Rb5SHEMpPg2EAzf0ZYVc0DLD9Yd/vMZ01IHAWQPe9rV8Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAQmCw4PXpxO1KatG5mQz52i1Nus4AFVH56r5pfxBgCo6czNSX15X0uDrBJzIuFCFA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -251,7 +251,7 @@ namespace HikiCoffee.Data.Migrations
                     b.Property<DateTime?>("DateCheckOut")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("StatusId")
+                    b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<double>("TotalPayPrice")
@@ -463,7 +463,7 @@ namespace HikiCoffee.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("StatusId")
+                    b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -647,7 +647,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6741),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6649),
                             IsActive = true,
                             IsFeatured = true,
                             OriginalPrice = 100000m,
@@ -659,7 +659,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6755),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6662),
                             IsActive = true,
                             IsFeatured = false,
                             OriginalPrice = 55000m,
@@ -671,7 +671,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6756),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6664),
                             IsActive = true,
                             IsFeatured = true,
                             OriginalPrice = 84000m,
@@ -722,7 +722,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 1,
                             Caption = "image 1",
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6831),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6741),
                             FileSize = 0L,
                             ProductId = 1,
                             SortOrder = 0,
@@ -732,7 +732,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 2,
                             Caption = "image 2",
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6833),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6742),
                             FileSize = 0L,
                             ProductId = 1,
                             SortOrder = 0,
@@ -742,7 +742,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 3,
                             Caption = "image 3",
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6834),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6743),
                             FileSize = 0L,
                             ProductId = 1,
                             SortOrder = 0,
@@ -752,7 +752,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 4,
                             Caption = "image 1",
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6835),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6744),
                             FileSize = 0L,
                             ProductId = 2,
                             SortOrder = 0,
@@ -762,7 +762,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 5,
                             Caption = "image 2",
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6836),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6745),
                             FileSize = 0L,
                             ProductId = 2,
                             SortOrder = 0,
@@ -772,7 +772,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 6,
                             Caption = "image 1",
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 605, DateTimeKind.Local).AddTicks(6837),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6746),
                             FileSize = 0L,
                             ProductId = 3,
                             SortOrder = 0,
@@ -930,7 +930,7 @@ namespace HikiCoffee.Data.Migrations
                             Details = "Americano",
                             LanguageId = 2,
                             NameProduct = "Americano",
-                            ProductId = 4,
+                            ProductId = 3,
                             SeoAlias = "/americano-347272",
                             SeoDescription = "Americano",
                             SeoTitle = "Americano"
@@ -961,25 +961,25 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1188),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5548),
                             IsActive = true
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1202),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5558),
                             IsActive = true
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1203),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5558),
                             IsActive = true
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2022, 5, 27, 18, 25, 22, 596, DateTimeKind.Local).AddTicks(1203),
+                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5559),
                             IsActive = true
                         });
                 });
@@ -1338,9 +1338,11 @@ namespace HikiCoffee.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HikiCoffee.Data.Entities.Status", null)
+                    b.HasOne("HikiCoffee.Data.Entities.Status", "Status")
                         .WithMany("Bills")
-                        .HasForeignKey("StatusId");
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HikiCoffee.Data.Entities.AppUser", "AppUser")
                         .WithMany("Bills")
@@ -1351,6 +1353,8 @@ namespace HikiCoffee.Data.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("CoffeeTable");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.BillInfo", b =>
@@ -1393,9 +1397,13 @@ namespace HikiCoffee.Data.Migrations
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.CoffeeTable", b =>
                 {
-                    b.HasOne("HikiCoffee.Data.Entities.Status", null)
+                    b.HasOne("HikiCoffee.Data.Entities.Status", "Status")
                         .WithMany("CoffeeTables")
-                        .HasForeignKey("StatusId");
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.ImportProduct", b =>
