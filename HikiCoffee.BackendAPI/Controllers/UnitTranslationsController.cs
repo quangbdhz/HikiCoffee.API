@@ -36,5 +36,27 @@ namespace HikiCoffee.BackendAPI.Controllers
 
             return Ok(result.Message);
         }
+
+        [HttpDelete("Delete/{unitTranslationId}")]
+        public async Task<IActionResult> DeleteUnitTranslation(int unitTranslationId)
+        {
+            var result = await _unitTranslationService.DeleteUnitTranslation(unitTranslationId);
+
+            if (!result.IsSuccessed)
+                return BadRequest(result.Message);
+
+            return Ok(result.Message);
+        }
+
+        [HttpGet("GetByUnitId/{unitId}")]
+        public async Task<IActionResult> GetByUnitId(int unitId)
+        {
+            var result = await _unitTranslationService.GetByUnitId(unitId);
+
+            if (result.Count < 1)
+                return NotFound("Unit Translation Is Not Found.");
+
+            return Ok(result);
+        }
     }
 }

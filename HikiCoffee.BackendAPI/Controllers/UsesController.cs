@@ -1,4 +1,5 @@
 ﻿using HikiCoffee.Application.Uses;
+using HikiCoffee.ViewModels.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
@@ -18,9 +19,9 @@ namespace HikiCoffee.BackendAPI.Controllers
         [HttpGet("GetAll/{languageId}")]
         public async Task<IActionResult> GetAll(int languageId)
         {
-            var unit = await _unitService.GetAll(languageId);
+            var uses = await _unitService.GetAll(languageId);
 
-            return Ok(unit);
+            return Ok(uses);
         }
 
         [HttpGet("GetById/{unitId}/{languageId}")]
@@ -38,7 +39,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> AdddUnit()
+        public async Task<IActionResult> AddUnit()
         {
             var result = await _unitService.AddUnit();
 
@@ -55,5 +56,14 @@ namespace HikiCoffee.BackendAPI.Controllers
 
             return Ok(result.Message);
         }
+
+        [HttpGet("GetPagingUnitManagement")]
+        public async Task<IActionResult> GetPagingUnitManagements([FromQuery] PagingRequestBase request)
+        {
+            var uses = await _unitService.GetPagingUnitManagements(request);
+
+            return Ok(uses);
+        }
+
     }
 }

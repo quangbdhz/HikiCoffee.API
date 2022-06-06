@@ -1,5 +1,4 @@
-﻿using HikiCoffee.Data.Entities;
-using HikiCoffee.ViewModels.Categories;
+﻿using HikiCoffee.ViewModels.Categories;
 
 namespace HikiCoffee.ViewModels.Products
 {
@@ -39,30 +38,35 @@ namespace HikiCoffee.ViewModels.Products
 
         public IList<CategoryViewModel>? Categories { get; set; }
 
-        public ProductViewModel(Product product, ProductTranslation productTranslation, IList<CategoryViewModel>? categories)
-        {
-            Id = product.Id;
-            UrlImageCoverProduct = product.UrlImageCoverProduct;
-            DateCreated = product.DateCreated;
-            Description = productTranslation.Description;
-            IsActive = product.IsActive;
-            Details = productTranslation.Details;
-            IsFeatured = product.IsFeatured;
-            LanguageId = productTranslation.LanguageId;
-            NameProduct = productTranslation.NameProduct;
-            OriginalPrice = product.OriginalPrice;
-            Price = product.Price;
-            SeoAlias = productTranslation.SeoAlias;
-            SeoDescription = productTranslation.SeoDescription;
-            SeoTitle = productTranslation.SeoTitle;
-            Stock = product.Stock;
-            ViewCount = product.ViewCount;
-            Categories = categories;
-        }
+        //public ProductViewModel(Product product, ProductTranslation productTranslation, IList<CategoryViewModel>? categories)
+        //{
+        //    Id = product.Id;
+        //    UrlImageCoverProduct = product.UrlImageCoverProduct;
+        //    DateCreated = product.DateCreated;
+        //    Description = productTranslation.Description;
+        //    IsActive = product.IsActive;
+        //    Details = productTranslation.Details;
+        //    IsFeatured = product.IsFeatured;
+        //    LanguageId = productTranslation.LanguageId;
+        //    NameProduct = productTranslation.NameProduct;
+        //    OriginalPrice = product.OriginalPrice;
+        //    Price = product.Price;
+        //    SeoAlias = productTranslation.SeoAlias;
+        //    SeoDescription = productTranslation.SeoDescription;
+        //    SeoTitle = productTranslation.SeoTitle;
+        //    Stock = product.Stock;
+        //    ViewCount = product.ViewCount;
+        //    Categories = categories;
+        //}
 
         public ProductViewModel(int id)
         {
             Id = id;
+        }
+
+        public ProductViewModel()
+        {
+
         }
     }
 }

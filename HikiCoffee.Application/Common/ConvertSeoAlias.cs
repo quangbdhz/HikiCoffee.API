@@ -16,7 +16,7 @@ namespace HikiCoffee.Application.Common
             Regex trimmer = new Regex(@"\s\s+");
 
             value = trimmer.Replace(value, " ");
-            value = value.Replace(" ", "-") + "-" + rd.Next(100000, 999999);
+            value = "/" + value.Replace(" ", "-") + "-" + rd.Next(100000, 999999);
 
             return value.ToLower();
         }

@@ -75,5 +75,21 @@ namespace HikiCoffee.Application.Uses
             }
         }
 
+        public async Task<PagedResult<UnitManagementViewModel>> GetPagingUnitManagements(PagingRequestBase request)
+        {
+            var uses = await _context.Uses.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).Select(x => new UnitManagementViewModel() { Id = x.Id, IsActive = x.IsActive}).ToListAsync();
+
+            int totalRow = uses.Count();
+
+            var pagedResult = new PagedResult<UnitManagementViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
+                Items = uses
+            };
+
+            return pagedResult;
+        }
     }
 }

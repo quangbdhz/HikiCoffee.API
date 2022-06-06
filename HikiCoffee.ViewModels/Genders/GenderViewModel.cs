@@ -1,13 +1,11 @@
-﻿namespace HikiCoffee.Data.Entities
+﻿namespace HikiCoffee.ViewModels.Genders
 {
-    public class Gender
+    public class GenderViewModel
     {
         public int Id { get; set; }
 
         public string NameGender { get; set; }
 
         public bool IsActive { get; set; }
-
-        public List<AppUser> AppUsers { get; set; }
     }
 }
