@@ -10,6 +10,8 @@ namespace HikiCoffee.Application.ImportProducts
 
         Task<ApiResult<ImportProductViewModel?>> GetById(int importProductId);
 
+        Task<ApiResult<ImportProductViewModel?>> GetDetailById(int importProductId, int languageId);
+
         Task<ApiResult<bool>> AddImportProduct(ImportProductCreateRequest request);
 
     }

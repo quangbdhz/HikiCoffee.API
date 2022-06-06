@@ -34,6 +34,17 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(importProduct.ResultObj);
         }
 
+        [HttpGet("GetDetailById/{importProductId}/{laguageId}")]
+        public async Task<IActionResult> GetDetailById(int importProductId, int laguageId)
+        {
+            var importProduct = await _importProductService.GetDetailById(importProductId, laguageId);
+
+            if (!importProduct.IsSuccessed)
+                return NotFound(importProduct.Message);
+
+            return Ok(importProduct.ResultObj);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddImportProduct(ImportProductCreateRequest request)
         {

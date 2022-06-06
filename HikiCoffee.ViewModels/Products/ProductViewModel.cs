@@ -37,7 +37,7 @@ namespace HikiCoffee.ViewModels.Products
 
         public int LanguageId { get; set; }
 
-        public IList<CategoryViewModel>? Categories { get; set;}
+        public IList<CategoryViewModel>? Categories { get; set; }
 
         public ProductViewModel(Product product, ProductTranslation productTranslation, IList<CategoryViewModel>? categories)
         {
@@ -58,6 +58,11 @@ namespace HikiCoffee.ViewModels.Products
             Stock = product.Stock;
             ViewCount = product.ViewCount;
             Categories = categories;
+        }
+
+        public ProductViewModel(int id)
+        {
+            Id = id;
         }
     }
 }

@@ -1,9 +1,13 @@
 ﻿using HikiCoffee.Data.EF;
 using HikiCoffee.Data.Entities;
 using HikiCoffee.Utilities.Constants;
+using HikiCoffee.ViewModels.Categories;
 using HikiCoffee.ViewModels.Common;
 using HikiCoffee.ViewModels.ImportProducts;
 using HikiCoffee.ViewModels.ImportProducts.ImportProductDataRequest;
+using HikiCoffee.ViewModels.Products;
+using HikiCoffee.ViewModels.Supliers;
+using HikiCoffee.ViewModels.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -72,7 +76,16 @@ namespace HikiCoffee.Application.ImportProducts
                         join s in _context.Supliers on i.SuplierId equals s.Id
                         select new { i, u, p, s };
 
-            return await query.Select(x => new ImportProductViewModel() { Id = x.i.Id, DateImportProduct = x.i.DateImportProduct, PriceImportProduct = x.i.PriceImportProduct, Quantity = x.i.Quantity, AppUser = x.u, Product = x.p, Suplier = x.s }).ToListAsync();
+            return await query.Select(x => new ImportProductViewModel()
+            {
+                Id = x.i.Id,
+                DateImportProduct = x.i.DateImportProduct,
+                PriceImportProduct = x.i.PriceImportProduct,
+                Quantity = x.i.Quantity,
+                User = new UserViewModel() { Id = x.u.Id },
+                Product = new ProductViewModel(x.p.Id),
+                Suplier = new SuplierViewModel() { Id = x.s.Id }
+            }).ToListAsync();
 
         }
 
@@ -86,7 +99,17 @@ namespace HikiCoffee.Application.ImportProducts
 
             try
             {
-                var importProductViewModel = await query.Select(x => new ImportProductViewModel() { Id = x.i.Id, DateImportProduct = x.i.DateImportProduct, PriceImportProduct = x.i.PriceImportProduct, Quantity = x.i.Quantity, AppUser = x.u, Product = x.p, Suplier = x.s }).FirstOrDefaultAsync();
+                var importProductViewModel = await query.Select(x => 
+                new ImportProductViewModel()
+                {
+                    Id = x.i.Id,
+                    DateImportProduct = x.i.DateImportProduct,
+                    PriceImportProduct = x.i.PriceImportProduct,
+                    Quantity = x.i.Quantity,
+                    User = new UserViewModel() { Id = x.u.Id },
+                    Product = new ProductViewModel(x.p.Id),
+                    Suplier = new SuplierViewModel() { Id = x.s.Id }
+                }).FirstOrDefaultAsync();
 
                 if(importProductViewModel == null)
                     return new ApiErrorResult<ImportProductViewModel?>("ImportProduct" + MessageConstants.NotFound);
@@ -95,6 +118,98 @@ namespace HikiCoffee.Application.ImportProducts
 
             }
             catch(Exception ex)
+            {
+                return new ApiErrorResult<ImportProductViewModel?>(ex.Message);
+            }
+        }
+
+        public async Task<ApiResult<ImportProductViewModel?>> GetDetailById(int importProductId, int languageId)
+        {
+            var query = from i in _context.ImportProducts
+                        where i.Id == importProductId
+                        join u in _context.Users on i.UserIdImportProduct equals u.Id
+                        join p in _context.Products on i.ProductId equals p.Id
+                        join s in _context.Supliers on i.SuplierId equals s.Id
+                        select new { i, u, p, s };
+
+            try
+            {
+                var importProductViewModel = await query.Select(x =>
+                new ImportProductViewModel()
+                {
+                    Id = x.i.Id,
+                    DateImportProduct = x.i.DateImportProduct,
+                    PriceImportProduct = x.i.PriceImportProduct,
+                    Quantity = x.i.Quantity,
+                    IsGetById = false,
+                    User = new UserViewModel() { Id = x.u.Id },
+                    Product = new ProductViewModel(x.p.Id),
+                    Suplier = new SuplierViewModel() { Id = x.s.Id }
+                }).FirstOrDefaultAsync();
+
+                if (importProductViewModel == null)
+                    return new ApiErrorResult<ImportProductViewModel?>("ImportProduct" + MessageConstants.NotFound);
+
+                #region query product
+                var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == importProductViewModel.Product.Id);
+
+                if (product == null)
+                    return new ApiErrorResult<ImportProductViewModel?>("Product" + MessageConstants.NotFound);
+
+                var productTranslation = await _context.ProductTranslations.SingleOrDefaultAsync(x => x.ProductId == product.Id && x.LanguageId == languageId);
+
+                if (productTranslation == null)
+                    return new ApiErrorResult<ImportProductViewModel?>("ProductTranslation" + MessageConstants.NotFound);
+
+                var queryCategoryViewModel = from pic in _context.ProductInCategories
+                                             where pic.ProductId == product.Id
+                                             join ct in _context.CategoryTranslations on pic.CategoryId equals ct.CategoryId
+                                             where ct.LanguageId == languageId
+                                             select new { pic, ct };
+
+                var categoryViewModels = await queryCategoryViewModel.Select(x => new CategoryViewModel() { Id = x.ct.CategoryId, Name = x.ct.NameCategory, ParentId = 0 }).ToListAsync();
+
+                importProductViewModel.Product = new ProductViewModel(product, productTranslation, categoryViewModels);
+                #endregion
+
+                #region query suplier
+                var suplier = await _context.Supliers.SingleOrDefaultAsync(x => x.Id == importProductViewModel.Suplier.Id);
+                if (suplier == null)
+                    return new ApiErrorResult<ImportProductViewModel?>("Suplier" + MessageConstants.NotFound);
+
+                var suplierViewModel = new SuplierViewModel() { Id = suplier.Id, Address = suplier.Address, Phone = suplier.Phone, NameSuplier = suplier.NameSuplier, ContractDate = suplier.ContractDate, Email = suplier.Email, IsActive = suplier.IsActive, MoreInfo = suplier.MoreInfo };
+
+                importProductViewModel.Suplier = new SuplierViewModel() { Id = suplier.Id, Address = suplier.Address, Phone = suplier.Phone, NameSuplier = suplier.NameSuplier, ContractDate = suplier.ContractDate, Email = suplier.Email, IsActive = suplier.IsActive, MoreInfo = suplier.MoreInfo };
+                #endregion
+
+                #region query user
+                var user = await _userManager.FindByIdAsync(importProductViewModel.User.Id.ToString());
+                if (user == null)
+                {
+                    return new ApiErrorResult<ImportProductViewModel?>("User" + MessageConstants.NotFound);
+                }
+                var roles = await _userManager.GetRolesAsync(user);
+
+                var gender = await _context.Genders.SingleOrDefaultAsync(x => x.Id == user.GenderId);
+
+                importProductViewModel.User = new UserViewModel()
+                {
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    FirstName = user.FirstName,
+                    Dob = user.Dob,
+                    Id = user.Id,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    Gender = gender != null ? gender.NameGender : "null",
+                    Roles = roles
+                };
+                #endregion
+
+                return new ApiSuccessResult<ImportProductViewModel?>(importProductViewModel);
+
+            }
+            catch (Exception ex)
             {
                 return new ApiErrorResult<ImportProductViewModel?>(ex.Message);
             }
