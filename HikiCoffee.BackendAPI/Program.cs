@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using HikiCoffee.Application.BillInfos;
 using HikiCoffee.Application.Bills;
 using HikiCoffee.Application.Categories;
+using HikiCoffee.Application.CategoryTranslations;
 using HikiCoffee.Application.CoffeeTables;
 using HikiCoffee.Application.Genders;
 using HikiCoffee.Application.ImportProducts;
@@ -57,6 +58,7 @@ builder.Services.AddTransient<IBillService, BillService>();
 builder.Services.AddTransient<IGenderService, GenderService>();
 builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IStatusTranslationService, StatusTranslationService>();
+builder.Services.AddTransient<ICategoryTranslationService, CategoryTranslationService>();
 
 
 //builder.Services.AddControllers();

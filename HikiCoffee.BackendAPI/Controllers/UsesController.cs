@@ -57,7 +57,7 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(result.Message);
         }
 
-        [HttpGet("GetPagingUnitManagement")]
+        [HttpGet("GetPagingUnitManagements")]
         public async Task<IActionResult> GetPagingUnitManagements([FromQuery] PagingRequestBase request)
         {
             var uses = await _unitService.GetPagingUnitManagements(request);

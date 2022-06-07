@@ -23,10 +23,15 @@ namespace HikiCoffee.Application.StatusTransaltions
             if (checkLanguage == null)
                 return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
 
-            var checkAddStatusTranslationVersionLanguageCurrent = await _context.StatusTranslations.FirstOrDefaultAsync(x => x.StatusId == statusId && x.LanguageId == languageId);
-            if (checkAddStatusTranslationVersionLanguageCurrent != null)
-                return new ApiErrorResult<bool>("Status Translation has version Language");
+            var checkTheStatusTranslation = await _context.StatusTranslations.FirstOrDefaultAsync(x => x.StatusId == statusId && x.LanguageId == languageId);
+            if (checkTheStatusTranslation != null)
+                return new ApiErrorResult<bool>("StatusTranslation version Language already exist.");
 
+
+            var checkStatus = await _context.Statuses.FirstOrDefaultAsync(x => x.Id == statusId);
+
+            if (checkStatus == null)
+                return new ApiErrorResult<bool>("Status" + MessageConstants.NotFound);
 
             var statusTranslation = new StatusTranslation() { StatusId = statusId, NameStatus = nameStatus, LanguageId = languageId };
             await _context.StatusTranslations.AddAsync(statusTranslation);

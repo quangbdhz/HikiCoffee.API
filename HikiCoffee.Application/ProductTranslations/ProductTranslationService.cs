@@ -24,6 +24,11 @@ namespace HikiCoffee.Application.ProductTranslations
             if (checkLanguage == null)
                 return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
 
+            var checkTheProductTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.ProductId && x.LanguageId == request.LanguageId);
+
+            if (checkTheProductTranslation != null)
+                return new ApiErrorResult<bool>("ProductTranslation version Language already exist.");
+
             var checkProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.ProductId);
             if (checkProduct == null)
                 return new ApiErrorResult<bool>("Product" + MessageConstants.NotFound);

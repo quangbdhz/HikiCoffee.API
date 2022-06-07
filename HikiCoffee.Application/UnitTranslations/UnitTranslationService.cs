@@ -23,9 +23,15 @@ namespace HikiCoffee.Application.UnitTranslations
             if (checkLanguage == null)
                 return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
 
-            var checkAddUnitTranslationVersionLanguageCurrent = await _context.UnitTranslations.FirstOrDefaultAsync(x => x.UnitId == request.UnitId && x.LanguageId == request.LanguageId);
-            if (checkAddUnitTranslationVersionLanguageCurrent != null)
-                return new ApiErrorResult<bool>("Unit Translation has version Language");
+            var checkTheUnitTranslation = await _context.UnitTranslations.FirstOrDefaultAsync(x => x.UnitId == request.UnitId && x.LanguageId == request.LanguageId);
+            if (checkTheUnitTranslation != null)
+                return new ApiErrorResult<bool>("UnitTranslation version Language already exist.");
+
+            var checkUnit = await _context.Uses.FirstOrDefaultAsync(x => x.Id == request.UnitId);
+
+            if (checkUnit == null)
+                return new ApiErrorResult<bool>("Unit" + MessageConstants.NotFound);
+
 
             var unitTranslation = new UnitTranslation() { NameUnit = request.NameUnit, LanguageId = request.LanguageId, MoreInfo = request.MoreInfo, UnitId = request.UnitId };
             await _context.UnitTranslations.AddAsync(unitTranslation);

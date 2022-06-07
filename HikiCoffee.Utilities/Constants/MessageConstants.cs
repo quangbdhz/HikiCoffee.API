@@ -14,5 +14,20 @@
         public static string UserDoesNotExist = "User Does Not Exist.";
 
         public static string NotFound = " Is Not Found.";
+
+        public static string AddSuccess(string name)
+        {
+            return "Add " + name + " is success.";
+        }
+
+        public static string UpdateSuccess(string name)
+        {
+            return "Update " + name + " is success.";
+        }
+
+        public static string DeleteSuccess(string name)
+        {
+            return "Delete " + name + " is success.";
+        }
     }
 }

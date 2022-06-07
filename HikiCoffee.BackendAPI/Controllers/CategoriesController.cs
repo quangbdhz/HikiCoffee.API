@@ -1,4 +1,6 @@
 ﻿using HikiCoffee.Application.Categories;
+using HikiCoffee.ViewModels.Categories.CategoryDataRequest;
+using HikiCoffee.ViewModels.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
@@ -32,5 +34,45 @@ namespace HikiCoffee.BackendAPI.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet("GetPagingCategoryManagements")]
+        public async Task<IActionResult> GetPagingCategoryManagements([FromQuery] PagingRequestBase request)
+        {
+            var categories = await _categoryService.GetPagingCategoryManagements(request);
+
+            return Ok(categories);
+        }
+
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddCategory(CategoryCreateRequest request)
+        {
+            var result = await _categoryService.AddCategory(request);
+
+            return Ok(result.ResultObj);
+        }
+
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateCategory(CategoryUpdateRequest request)
+        {
+            var result = await _categoryService.UpdateCategory(request);
+
+            if (!result.IsSuccessed)
+                return BadRequest(result.Message);
+
+            return Ok(result.Message);
+        }
+
+        [HttpDelete("Delete/{categoryId}")]
+        public async Task<IActionResult> DeleteCategory(int categoryId)
+        {
+            var result = await _categoryService.DeleteCategory(categoryId);
+
+            if(!result.IsSuccessed)
+                return BadRequest(result.Message);
+
+            return Ok(result.Message);
+        }
+
     }
 }
