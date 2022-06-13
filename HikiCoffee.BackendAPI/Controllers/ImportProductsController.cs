@@ -1,11 +1,13 @@
 ﻿using HikiCoffee.Application.ImportProducts;
 using HikiCoffee.ViewModels.ImportProducts.ImportProductDataRequest;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ImportProductsController : ControllerBase
     {
@@ -45,7 +47,7 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(importProduct.ResultObj);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddImportProduct(ImportProductCreateRequest request)
         {
             var result = await _importProductService.AddImportProduct(request);
@@ -54,6 +56,19 @@ namespace HikiCoffee.BackendAPI.Controllers
                 return BadRequest(result.Message);
 
             return Ok(result.Message);
+        }
+
+        [HttpGet("GetPagingImportProductManagements")]
+        public async Task<IActionResult> GetPagingImportProductManagements([FromQuery] PagingRequestImportProduct request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var importProducts = await _importProductService.GetPagingImportProductManagements(request);
+
+            return Ok(importProducts);
         }
 
     }

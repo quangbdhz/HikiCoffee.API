@@ -28,6 +28,8 @@ namespace HikiCoffee.Data.Configurations
             builder.Property(x => x.IsFeatured).HasDefaultValue(false).IsRequired(false);
 
             builder.Property(x => x.IsActive).HasDefaultValue(true).IsRequired(true);
+
+            builder.HasOne(x => x.Unit).WithMany(x => x.Products).HasForeignKey(x => x.UnitId).IsRequired(false);
         }
     }
 }

@@ -62,6 +62,20 @@ namespace HikiCoffee.Application.UnitTranslations
             }
         }
 
+        public async Task<List<UnitTranslationManagementViewModel>> GetAllUnitTranslation(int languageId)
+        {
+            var unitTranslations = await _context.UnitTranslations.Where(x => x.LanguageId == languageId).Select(x => new UnitTranslationManagementViewModel()
+            {
+                Id = x.Id,
+                UnitId = x.UnitId,
+                LanguageId = x.LanguageId,
+                MoreInfo = x.MoreInfo,
+                NameUnit = x.NameUnit
+            }).ToListAsync();
+
+            return unitTranslations;
+        }
+
         public async Task<List<UnitTranslationManagementViewModel>> GetByUnitId(int unitId)
         {
             var unitTranslations = await _context.UnitTranslations.Where(x => x.UnitId == unitId).Select(x => new UnitTranslationManagementViewModel()

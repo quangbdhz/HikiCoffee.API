@@ -33,6 +33,9 @@ namespace HikiCoffee.BackendAPI.Controllers
 
             var result = await _userService.Login(request);
 
+            if (!result.IsSuccessed)
+                return BadRequest(result.Message);
+
             if (string.IsNullOrEmpty(result.Message))
             {
                 return BadRequest(result);
@@ -158,11 +161,15 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("Detete/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.Delete(id);
-            return Ok(result);
+
+            if(!result.IsSuccessed)
+                return BadRequest(result.Message);
+
+            return Ok(result.Message);
         }
 
         [HttpPut("RoleAssign/{id}")]
@@ -177,6 +184,14 @@ namespace HikiCoffee.BackendAPI.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
+        }
+
+        [HttpGet("GetPagingUserManagements")]
+        public async Task<IActionResult> GetPagingUserManagements([FromQuery] PagingRequestBase request)
+        {
+            var users = await _userService.GetPagingUserManagements(request);
+
+            return Ok(users);
         }
     }
 }

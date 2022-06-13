@@ -37,7 +37,8 @@ namespace HikiCoffee.Application.Users
         public async Task<ApiResult<Guid>> Login(UserLoginRequest loginRequest)
         {
             var user = await _userManager.FindByNameAsync(loginRequest.UserName);
-            if (user == null) return new ApiErrorResult<Guid>("User does not exist");
+            if (user == null) 
+                return new ApiErrorResult<Guid>("User" + MessageConstants.ErrorFound);
 
             var result = await _signInManager.PasswordSignInAsync(user, loginRequest.Password, loginRequest.RememberMe, true);
             if (!result.Succeeded)
@@ -197,7 +198,7 @@ namespace HikiCoffee.Application.Users
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new ApiSuccessResult<bool>(MessageConstants.UpdateSuccess("User"));
             }
             return new ApiErrorResult<bool>("Cập nhật không thành công");
         }
@@ -207,14 +208,14 @@ namespace HikiCoffee.Application.Users
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new ApiErrorResult<bool>("User does not exist");
+                return new ApiErrorResult<bool>("User" + MessageConstants.NotFound);
             }
 
-            user.IsActive = false;
+            user.IsActive = !user.IsActive;
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new ApiSuccessResult<bool>(MessageConstants.DeleteSuccess("User"));
             }
 
             return new ApiErrorResult<bool>("Deletion failed");
@@ -294,6 +295,50 @@ namespace HikiCoffee.Application.Users
             }
 
             return new ApiSuccessResult<bool>();
+        }
+
+        public async Task<PagedResult<UserManagementViewModel>> GetPagingUserManagements(PagingRequestBase request)
+        {
+            var query = from u in _context.Users
+                        join g in _context.Genders on u.GenderId equals g.Id
+                        select new { u, g };
+
+            var users = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).Select(x => new UserManagementViewModel()
+            {
+                Id = x.u.Id,
+                UrlImageUser = x.u.UrlImageUser,
+                Dob = x.u.Dob,
+                Email = x.u.Email,
+                IsEmailConfirmed = x.u.EmailConfirmed,
+                FirstName = x.u.FirstName,
+                LastName = x.u.LastName,
+                PhoneNumber = x.u.PhoneNumber,
+                NameGender = x.g.NameGender,
+                UserName = x.u.UserName,
+                IsActive = x.u.IsActive
+            }).ToListAsync();
+
+
+            int totalRow = await query.CountAsync();
+
+            var pagedResult = new PagedResult<UserManagementViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
+                Items = users
+            };
+
+            return pagedResult;
+        }
+
+        public async Task<string> GetAllRoleOfUser(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return string.Join(",", roles);
         }
     }
 }

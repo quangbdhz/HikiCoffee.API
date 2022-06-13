@@ -13,5 +13,9 @@ namespace HikiCoffee.Application.CategoryTranslations
         Task<ApiResult<bool>> DeleteCategoryTranslation(int categoryTranslationId);
 
         Task<List<CategoryTranslationManagementViewModel>> GetByCategoryId(int categoryId);
+
+        Task<List<CategoryTranslationManagementViewModel>> GetAllCategoryTranslationByLanguageId(int languageId);
+
+        Task<List<CategoryTranslationWithUrlViewModel>> GetAllCategoryTranslationWithUrlByLanguageId(int languageId);
     }
 }

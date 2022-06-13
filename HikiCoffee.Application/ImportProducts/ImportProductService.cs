@@ -241,6 +241,36 @@ namespace HikiCoffee.Application.ImportProducts
             return productViewModel;
         }
 
+        public async Task<PagedResult<ImportProductManagementViewModel>> GetPagingImportProductManagements(PagingRequestImportProduct request)
+        {
+            var query = from i in _context.ImportProducts
+                        join u in _context.Users on i.UserIdImportProduct equals u.Id
+                        join pt in _context.ProductTranslations on i.ProductId equals pt.ProductId where pt.LanguageId == request.LanguageId
+                        join s in _context.Supliers on i.SuplierId equals s.Id
+                        select new { i, u, pt, s };
 
+            var importProducts = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).Select(x => new ImportProductManagementViewModel()
+            {
+                Id = x.i.Id,
+                DateImportProduct = x.i.DateImportProduct,
+                PriceImportProduct = x.i.PriceImportProduct,
+                Quantity = x.i.Quantity,
+                FullNameStaffAddImportProduct = x.u.FirstName + " " + x.u.LastName,
+                ProductName = x.pt.NameProduct,
+                SuplierName = x.s.NameSuplier
+            }).ToListAsync();
+
+            int totalRow = query.Count();
+
+            var pagedResult = new PagedResult<ImportProductManagementViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
+                Items = importProducts
+            };
+
+            return pagedResult;
+        }
     }
 }

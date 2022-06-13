@@ -58,5 +58,14 @@ namespace HikiCoffee.BackendAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("GetAllUnitTranslation/{languageId}")]
+        public async Task<IActionResult> GetAllUnitTranslation(int languageId)
+        {
+            var result = await _unitTranslationService.GetAllUnitTranslation(languageId);
+
+
+            return Ok(result);
+        }
     }
 }

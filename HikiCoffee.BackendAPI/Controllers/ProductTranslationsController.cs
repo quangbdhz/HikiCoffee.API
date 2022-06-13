@@ -60,5 +60,24 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetAllByLanguageId/{languageId}")]
+        public async Task<IActionResult> GetAllByLanguageId(int languageId)
+        {
+            var result = await _productTranslationService.GetAllByLanguageId(languageId);
+
+            if (result.Count < 1)
+                return NotFound("Product Translation Is Not Found.");
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllByCategoryId/{categoryId}/{languageId}")]
+        public async Task<IActionResult> GetAllByCategoryId(int categoryId, int languageId)
+        {
+            var result = await _productTranslationService.GetAllByCategoryId(categoryId, languageId);
+
+            return Ok(result);
+        }
+
     }
 }

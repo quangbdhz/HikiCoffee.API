@@ -8,7 +8,7 @@
 
         public Guid UserPaymentId { get; set; }
 
-        public Guid UserCustomerId { get; set; }
+        public Guid? UserCustomerId { get; set; }
 
         public DateTime DateCheckIn { get; set; }
 

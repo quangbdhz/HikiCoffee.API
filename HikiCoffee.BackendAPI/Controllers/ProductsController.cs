@@ -1,6 +1,7 @@
 ﻿using HikiCoffee.Application.Products;
 using HikiCoffee.ViewModels.Common;
 using HikiCoffee.ViewModels.Products.ProducDataRequest;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
@@ -24,6 +25,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
         [HttpGet("GetPagingProductManagements")]
+        [Authorize]
         public async Task<IActionResult> GetPagingProductManagements([FromQuery] PagingRequestBase request)
         {
             var products = await _producService.GetPagingProductManagements(request);
@@ -50,6 +52,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
         [HttpPost("Add")]
+        [Authorize]
         public async Task<IActionResult> AddProduct(ProductCreateRequest productCreateRequest)
         {
             var result = await _producService.AddProduct(productCreateRequest);

@@ -124,7 +124,8 @@ namespace HikiCoffee.Application.Products
                 ViewCount = 0,
                 DateCreated = DateTime.Now,
                 IsActive = true,
-                IsFeatured = productCreateRequest.IsFeatured
+                IsFeatured = productCreateRequest.IsFeatured,
+                UnitId = productCreateRequest.UnitId
             };
 
             await _context.Products.AddAsync(product);

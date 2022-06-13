@@ -7,5 +7,7 @@
         public decimal Price { get; set; }
 
         public bool? IsFeatured { get; set; }
+
+        public int? UnitId { get; set; }
     }
 }

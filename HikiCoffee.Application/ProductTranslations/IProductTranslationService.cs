@@ -13,5 +13,10 @@ namespace HikiCoffee.Application.ProductTranslations
         Task<ApiResult<bool>> DeleteProductTranslation(int productTranslationId);
 
         Task<List<ProductTranslationManagementViewModel>> GetByProductId(int productId);
+
+        Task<List<ProductTranslationManagementViewModel>> GetAllByLanguageId(int languageId);
+
+        Task<List<ItemOderViewModel>> GetAllByCategoryId(int categoryId, int languageId);
+
     }
 }

@@ -13,5 +13,7 @@ namespace HikiCoffee.Application.UnitTranslations
         Task<ApiResult<bool>> DeleteUnitTranslation(int unitTranslationId);
 
         Task<List<UnitTranslationManagementViewModel>> GetByUnitId(int unitId);
+
+        Task<List<UnitTranslationManagementViewModel>> GetAllUnitTranslation(int languageId);
     }
 }

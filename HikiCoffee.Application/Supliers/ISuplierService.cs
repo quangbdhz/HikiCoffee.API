@@ -15,5 +15,7 @@ namespace HikiCoffee.Application.Supliers
         Task<ApiResult<bool>> UpdateSuplier(SuplierUpdateRequest request);
 
         Task<ApiResult<bool>> DeleteSuplier(int suplierId);
+
+
     }
 }

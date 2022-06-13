@@ -1,11 +1,13 @@
 ﻿using HikiCoffee.Application.Supliers;
 using HikiCoffee.ViewModels.Supliers.SuplierDataRequest;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SupliersController : ControllerBase
     {
         private readonly ISuplierService _suplierService;
@@ -16,7 +18,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var supliers = await _suplierService.GetAll();

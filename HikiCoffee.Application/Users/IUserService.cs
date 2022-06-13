@@ -32,5 +32,9 @@ namespace HikiCoffee.Application.Users
 
         Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
 
+        Task<PagedResult<UserManagementViewModel>> GetPagingUserManagements(PagingRequestBase request);
+
+        Task<string> GetAllRoleOfUser(Guid userId);
+
     }
 }

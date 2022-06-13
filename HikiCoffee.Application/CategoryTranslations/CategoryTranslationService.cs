@@ -72,6 +72,42 @@ namespace HikiCoffee.Application.CategoryTranslations
             }
         }
 
+        public async Task<List<CategoryTranslationManagementViewModel>> GetAllCategoryTranslationByLanguageId(int languageId)
+        {
+            var categoryTranslations = await _context.CategoryTranslations.Where(x => x.LanguageId == languageId).Select(x => new CategoryTranslationManagementViewModel()
+            {
+                Id = x.Id,
+                CategoryId = x.CategoryId,
+                LanguageId = x.LanguageId,
+                SeoAlias = x.SeoAlias,
+                NameCategory = x.NameCategory,
+                SeoDescription = x.SeoDescription,
+                SeoTitle = x.SeoTitle
+            }).ToListAsync();
+
+            return categoryTranslations;
+        }
+
+        public async Task<List<CategoryTranslationWithUrlViewModel>> GetAllCategoryTranslationWithUrlByLanguageId(int languageId)
+        {
+            var query = from c in _context.Categories
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId 
+                        where ct.LanguageId == languageId
+                        select new { c, ct };
+
+            return await query.Select(x => new CategoryTranslationWithUrlViewModel()
+            {
+                Id = x.ct.Id,
+                CategoryId = x.ct.CategoryId,
+                LanguageId = x.ct.LanguageId,
+                SeoAlias = x.ct.SeoAlias,
+                NameCategory = x.ct.NameCategory,
+                SeoDescription = x.ct.SeoDescription,
+                SeoTitle = x.ct.SeoTitle,
+                UrlImageCoverCategory = x.c.UrlImageCoverCategory
+            }).ToListAsync();
+        }
+
         public async Task<List<CategoryTranslationManagementViewModel>> GetByCategoryId(int categoryId)
         {
             var categoryTranslations = await _context.CategoryTranslations.Where(x => x.CategoryId == categoryId).Select(x => new CategoryTranslationManagementViewModel()

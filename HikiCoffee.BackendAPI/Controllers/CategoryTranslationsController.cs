@@ -24,6 +24,22 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetAllCategoryTranslationByLanguageId/{languageId}")]
+        public async Task<IActionResult> GetAllCategoryTranslationByLanguageId(int languageId)
+        {
+            var result = await _categoryTranslationService.GetAllCategoryTranslationByLanguageId(languageId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllCategoryTranslationWithUrlByLanguageId/{languageId}")]
+        public async Task<IActionResult> GetAllCategoryTranslationWithUrlByLanguageId(int languageId)
+        {
+            var result = await _categoryTranslationService.GetAllCategoryTranslationWithUrlByLanguageId(languageId);
+
+            return Ok(result);
+        }
+
         [HttpPost("Add")]
         public async Task<IActionResult> AddCategoryTranslation(CategoryTranslationCreateRequest request)
         {

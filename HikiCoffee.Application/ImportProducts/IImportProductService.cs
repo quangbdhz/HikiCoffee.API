@@ -14,5 +14,7 @@ namespace HikiCoffee.Application.ImportProducts
 
         Task<ApiResult<bool>> AddImportProduct(ImportProductCreateRequest request);
 
+        Task<PagedResult<ImportProductManagementViewModel>> GetPagingImportProductManagements(PagingRequestImportProduct request);
+
     }
 }
