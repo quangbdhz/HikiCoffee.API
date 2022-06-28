@@ -1,4 +1,4 @@
-# WEBAPI HIKICOFFEE
+# WebAPI HikiCoffee
 
 ## Functions
 
