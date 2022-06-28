@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88D6598E-DDB4-4422-B8CC-3603FD8D4A1A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiCoffee.BackendAPI", "HikiCoffee.BackendAPI\HikiCoffee.BackendAPI.csproj", "{1B602415-6858-46B8-BB52-322111733F75}"
