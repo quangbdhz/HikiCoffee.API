@@ -1,0 +1,27 @@
+CoffeeTables
+
+        //public int StatusId { get; set; }
+
+
+        //public Status Status { get; set; }
+
+
+        // builder.HasOne(x => x.Status).WithMany(x => x.CoffeeTables).HasForeignKey(x => x.StatusId);
+
+ImportProducts
+
+
+          //  builder.HasOne(x => x.Status).WithMany(x => x.ImportProducts).HasForeignKey(x => x.StatusId);
+
+AppointmentScheduleConfiguration
+
+           // builder.HasOne(x => x.Status).WithMany(x => x.AppointmentSchedules).HasForeignKey(x => x.StatusId);
+
+
+BillConfiguration
+            //builder.HasOne(x => x.Status).WithMany(x => x.Bills).HasForeignKey(x => x.StatusId);
+
+
+
+
+
