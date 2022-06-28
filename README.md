@@ -37,3 +37,8 @@ API Management Coffee Shop
 - Change connection string in Appsetting.json in HikiCoffee.Data project
 - Open Tools --> Nuget Package Manager --> Package Manager Console in Visual Studio
 - ```update-database```
+
+## How to contribute
+
+- Fork and create your branch
+- Create Pull request to us.
