@@ -12,7 +12,7 @@ namespace HikiCoffee.Application.ImportProducts
 
         Task<ApiResult<ImportProductViewModel?>> GetDetailById(int importProductId, int languageId);
 
-        Task<ApiResult<bool>> AddImportProduct(ImportProductCreateRequest request);
+        Task<ApiResult<int>> AddImportProduct(ImportProductCreateRequest request);
 
         Task<PagedResult<ImportProductManagementViewModel>> GetPagingImportProductManagements(PagingRequestImportProduct request);
 

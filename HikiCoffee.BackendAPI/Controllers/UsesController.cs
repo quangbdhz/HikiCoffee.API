@@ -43,7 +43,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _unitService.AddUnit();
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{unitId}")]
@@ -52,9 +52,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _unitService.DeleteUnit(unitId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetPagingUnitManagements")]

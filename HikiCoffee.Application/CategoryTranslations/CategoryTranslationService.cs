@@ -18,23 +18,22 @@ namespace HikiCoffee.Application.CategoryTranslations
             _context = context;
         }
 
-
-        public async Task<ApiResult<bool>> AddCategoryTranslation(CategoryTranslationCreateRequest request)
+        public async Task<ApiResult<int>> AddCategoryTranslation(CategoryTranslationCreateRequest request)
         {
             var isLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == request.LanguageId);
 
             if (isLanguage == null)
-                return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Language" + MessageConstants.NotFound);
 
             var checkTheCategoryTranslation = await _context.CategoryTranslations.FirstOrDefaultAsync(x => x.CategoryId == request.CategoryId && x.LanguageId == request.LanguageId);
 
             if (checkTheCategoryTranslation != null)
-                return new ApiErrorResult<bool>("CategoryTranslation version Language already exist.");
+                return new ApiErrorResult<int>("CategoryTranslation version Language already exist.");
 
             var checkCategory = await _context.Categories.FirstOrDefaultAsync(x => x.Id == request.CategoryId);
 
             if (checkCategory == null)
-                return new ApiErrorResult<bool>("Category" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Category" + MessageConstants.NotFound);
 
             var categoryTranslation = new CategoryTranslation()
             {
@@ -49,7 +48,7 @@ namespace HikiCoffee.Application.CategoryTranslations
             await _context.CategoryTranslations.AddAsync(categoryTranslation);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>(MessageConstants.AddSuccess("CategoryTranslation"));
+            return new ApiSuccessResult<int>(MessageConstants.AddSuccess("CategoryTranslation"));
         }
 
         public async Task<ApiResult<bool>> DeleteCategoryTranslation(int categoryTranslationId)
@@ -140,7 +139,7 @@ namespace HikiCoffee.Application.CategoryTranslations
 
                 await _context.SaveChangesAsync();
 
-                return new ApiSuccessResult<bool>(MessageConstants.DeleteSuccess("CategoryTranslation"));
+                return new ApiSuccessResult<bool>(MessageConstants.UpdateSuccess("CategoryTranslation"));
             }
             catch (Exception ex)
             {

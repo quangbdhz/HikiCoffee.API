@@ -18,20 +18,20 @@ namespace HikiCoffee.Application.ProductTranslations
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddProductTranslation(ProductTranslationCreateRequest request)
+        public async Task<ApiResult<int>> AddProductTranslation(ProductTranslationCreateRequest request)
         {
             var checkLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == request.LanguageId);
             if (checkLanguage == null)
-                return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Language" + MessageConstants.NotFound);
 
             var checkTheProductTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.ProductId && x.LanguageId == request.LanguageId);
 
             if (checkTheProductTranslation != null)
-                return new ApiErrorResult<bool>("ProductTranslation version Language already exist.");
+                return new ApiErrorResult<int>("ProductTranslation version Language already exist.");
 
             var checkProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.ProductId);
             if (checkProduct == null)
-                return new ApiErrorResult<bool>("Product" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Product" + MessageConstants.NotFound);
 
             var productTranslation = new ProductTranslation() 
             { 
@@ -47,7 +47,7 @@ namespace HikiCoffee.Application.ProductTranslations
             await _context.ProductTranslations.AddAsync(productTranslation);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>("Add ProductTranslation is success.");
+            return new ApiSuccessResult<int>("Add ProductTranslation is success.");
         }
 
         public async Task<ApiResult<bool>> DeleteProductTranslation(int productTranslationId)
@@ -74,7 +74,7 @@ namespace HikiCoffee.Application.ProductTranslations
         {
             var query = from pic in _context.ProductInCategories
                         where pic.CategoryId == categoryId
-                        join p in _context.Products on pic.ProductId equals p.Id
+                        join p in _context.Products on pic.ProductId equals p.Id where p.Stock > 0
                         join ut in _context.UnitTranslations on p.UnitId equals ut.UnitId where ut.LanguageId == languageId 
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId where pt.LanguageId == languageId
                         select new { pt, p, ut };

@@ -48,7 +48,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _categoryService.AddCategory(request);
 
-            return Ok(result.ResultObj);
+            return Ok(result);
         }
 
 
@@ -58,9 +58,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _categoryService.UpdateCategory(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{categoryId}")]
@@ -69,9 +69,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _categoryService.DeleteCategory(categoryId);
 
             if(!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
     }

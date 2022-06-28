@@ -6,7 +6,7 @@ namespace HikiCoffee.Application.ProductInCategories
 {
     public interface IProductInCategoryService
     {
-        Task<ApiResult<bool>> AddProductInCategory(ProductInCategoryCreateRequest request);
+        Task<ApiResult<int>> AddProductInCategory(ProductInCategoryCreateRequest request);
 
         Task<ApiResult<bool>> DeleteProductInCategory(int productId, int categoryId);
 

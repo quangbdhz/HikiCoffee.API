@@ -19,11 +19,11 @@ namespace HikiCoffee.Application.Categories
 
         public async Task<ApiResult<int>> AddCategory(CategoryCreateRequest request)
         {
-            var category = new Category() { IsActive = true, IsShowOnHome = request.IsShowOnHome, ParentId = request.ParentId, SortOrder = 0 };
+            var category = new Category() { IsActive = true, IsShowOnHome = request.IsShowOnHome, UrlImageCoverCategory = request.UrlImageCoverCategory, ParentId = request.ParentId, SortOrder = 0 };
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<int>(category.Id);
+            return new ApiSuccessResult<int>(category.Id) { Message = MessageConstants.AddSuccess("Category")};
         }
 
         public async Task<ApiResult<bool>> DeleteCategory(int categoryId)
@@ -87,6 +87,7 @@ namespace HikiCoffee.Application.Categories
             { 
                 Id = x.Id, 
                 IsShowOnHome = x.IsShowOnHome,
+                UrlImageCoverCategory = x.UrlImageCoverCategory,
                 IsActive =  x.IsActive,
                 ParentId = x.ParentId, 
                 SortOrder = x.SortOrder

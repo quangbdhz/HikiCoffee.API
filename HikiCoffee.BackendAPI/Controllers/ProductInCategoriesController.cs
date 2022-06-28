@@ -23,7 +23,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _productInCategoryService.AddProductInCategory(request);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{productId}/{categoryId}")]
@@ -31,7 +31,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _productInCategoryService.DeleteProductInCategory(productId, categoryId);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetCategoryOfProduct/{languageId}/{productId}")]

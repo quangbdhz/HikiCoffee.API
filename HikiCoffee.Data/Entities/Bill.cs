@@ -14,7 +14,7 @@
 
         public DateTime? DateCheckOut { get; set; }
 
-        public double TotalPayPrice { get; set; }
+        public decimal TotalPayPrice { get; set; }
 
         public int StatusId { get; set; }
 

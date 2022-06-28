@@ -43,7 +43,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _statusService.AddStatus();
 
-            return Ok(result.ResultObj);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{statusId}")]
@@ -52,9 +52,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _statusService.DeleteStatus(statusId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetPagingStatusManagements")]

@@ -11,7 +11,7 @@ namespace HikiCoffee.Application.Uses
 
         Task<ApiResult<UnitViewModel?>> GetById(int id, int languageId);
 
-        Task<ApiResult<bool>> AddUnit();
+        Task<ApiResult<int>> AddUnit();
 
         Task<ApiResult<bool>> DeleteUnit(int id);
     }

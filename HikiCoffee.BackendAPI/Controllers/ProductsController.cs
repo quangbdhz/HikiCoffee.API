@@ -58,12 +58,12 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.AddProduct(productCreateRequest);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
             if(result.ResultObj == 0)
-                return NotFound(result.Message);
+                return NotFound(result);
 
-            return Ok(result.ResultObj);
+            return Ok(result);
         }
 
         [HttpPut("Update")]
@@ -72,9 +72,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.UpdateProduct(productUpdateRequest);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPatch("AddViewCount/{productId}")]
@@ -83,9 +83,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.AddViewCountProduct(productId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{productId}")]
@@ -94,9 +94,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.DeleteProduct(productId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
     }

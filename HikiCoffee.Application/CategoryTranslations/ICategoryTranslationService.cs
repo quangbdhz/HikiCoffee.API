@@ -6,7 +6,7 @@ namespace HikiCoffee.Application.CategoryTranslations
 {
     public interface ICategoryTranslationService
     {
-        Task<ApiResult<bool>> AddCategoryTranslation(CategoryTranslationCreateRequest request);
+        Task<ApiResult<int>> AddCategoryTranslation(CategoryTranslationCreateRequest request);
 
         Task<ApiResult<bool>> UpdateCategoryTranslation(CategoryTranslationUpdateRequest request);
 

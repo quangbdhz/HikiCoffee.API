@@ -20,6 +20,8 @@ namespace HikiCoffee.Application.Users
 
         Task<ApiResult<UserViewModel>> GetByEmail(string email);
 
+        Task<UserManagementViewModel> GetByUserLoginAppManagement(Guid userId);
+
         Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
 
         Task<ApiResult<bool>> Delete(Guid id);

@@ -16,7 +16,8 @@ namespace HikiCoffee.Data.Extensions
                 new Status() { Id = 1, IsActive = true, DateCreated = DateTime.Now },
                 new Status() { Id = 2, IsActive = true, DateCreated = DateTime.Now },
                 new Status() { Id = 3, IsActive = true, DateCreated = DateTime.Now },
-                new Status() { Id = 4, IsActive = true, DateCreated = DateTime.Now });
+                new Status() { Id = 4, IsActive = true, DateCreated = DateTime.Now },
+                new Status() { Id = 5, IsActive = true, DateCreated = DateTime.Now });
 
             modelBuilder.Entity<StatusTranslation>().HasData(
                 new StatusTranslation() { Id = 1, StatusId = 1, LanguageId = 1, NameStatus = "Đã Thanh Toán" },
@@ -26,7 +27,9 @@ namespace HikiCoffee.Data.Extensions
                 new StatusTranslation() { Id = 5, StatusId = 3, LanguageId = 1, NameStatus = "Bàn Còn Trống" },
                 new StatusTranslation() { Id = 6, StatusId = 3, LanguageId = 2, NameStatus = "Tables Are Empty" },
                 new StatusTranslation() { Id = 7, StatusId = 4, LanguageId = 1, NameStatus = "Bàn Đang Sử Dụng" },
-                new StatusTranslation() { Id = 8, StatusId = 4, LanguageId = 2, NameStatus = "Table In Use" });
+                new StatusTranslation() { Id = 8, StatusId = 4, LanguageId = 2, NameStatus = "Table In Use" },
+                new StatusTranslation() { Id = 9, StatusId = 5, LanguageId = 1, NameStatus = "Hóa Đơn Đã Được Gộp" },
+                new StatusTranslation() { Id = 10, StatusId = 5, LanguageId = 2, NameStatus = "Invoices Consolidated" });
 
             var adminRoleId = new Guid("E1DB1200-1BB6-4156-9DA3-135E91D94ABA");
             var staffRoleId = new Guid("C489F858-AABD-4264-96C1-5CDCA251D871");
@@ -47,7 +50,11 @@ namespace HikiCoffee.Data.Extensions
                 new Category() { Id = 2, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137567/HikiCoffee/Image_Category/Tea_ri0xmh.png", IsShowOnHome = true, ParentId = null, IsActive = true },
                 new Category() { Id = 3, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Capuchino_nofwkm.png", IsShowOnHome = true, ParentId = null, IsActive = true },
                 new Category() { Id = 4, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Beer_lxd9sc.png", IsShowOnHome = true, ParentId = null, IsActive = true },
-                new Category() { Id = 5, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Wine_ufhg6w.png", IsShowOnHome = true, ParentId = null, IsActive = true });
+                new Category() { Id = 5, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Wine_ufhg6w.png", IsShowOnHome = true, ParentId = null, IsActive = true },
+                new Category() { Id = 6, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Juice_tn0vyi.png", IsShowOnHome = true, ParentId = null, IsActive = true },
+                new Category() { Id = 7, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Ice_Cream_ftsjti.png", IsShowOnHome = true, ParentId = null, IsActive = true },
+                new Category() { Id = 8, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Milktea_pkf5s5.png", IsShowOnHome = true, ParentId = null, IsActive = true },
+                new Category() { Id = 9, SortOrder = 1, UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Milk_siwgx5.png", IsShowOnHome = true, ParentId = null, IsActive = true });
 
             modelBuilder.Entity<CategoryTranslation>().HasData(
                 new CategoryTranslation() { Id = 1, CategoryId = 1, NameCategory = "Coffee", LanguageId = 2, SeoAlias = "/coffee-black-381831", SeoDescription = "Good", SeoTitle = "Product Coffee"},
@@ -59,7 +66,15 @@ namespace HikiCoffee.Data.Extensions
                 new CategoryTranslation() { Id = 7, CategoryId = 4, NameCategory = "Beer", LanguageId = 2, SeoAlias = "/beer-942752", SeoDescription = "Good", SeoTitle = "Product Beer" },
                 new CategoryTranslation() { Id = 8, CategoryId = 4, NameCategory = "Bia", LanguageId = 1, SeoAlias = "/bia-821964", SeoDescription = "Good Drink", SeoTitle = "Sản phầm bia" },
                 new CategoryTranslation() { Id = 9, CategoryId = 5, NameCategory = "Wine", LanguageId = 2, SeoAlias = "/wine-105824", SeoDescription = "Good", SeoTitle = "Product Wine" },
-                new CategoryTranslation() { Id = 10, CategoryId = 5, NameCategory = "Rược", LanguageId = 1, SeoAlias = "/ruoc-347134", SeoDescription = "Good Drink", SeoTitle = "Sản phầm rược" });
+                new CategoryTranslation() { Id = 10, CategoryId = 5, NameCategory = "Rược", LanguageId = 1, SeoAlias = "/ruoc-347134", SeoDescription = "Good Drink", SeoTitle = "Sản phầm rược" },
+                new CategoryTranslation() { Id = 11, CategoryId = 6, NameCategory = "Juice", LanguageId = 2, SeoAlias = "/juice-942712", SeoDescription = "Good", SeoTitle = "Product Juice" },
+                new CategoryTranslation() { Id = 12, CategoryId = 6, NameCategory = "Nước ép", LanguageId = 1, SeoAlias = "/nuoc-ep-413521", SeoDescription = "Good Drink", SeoTitle = "Sản phầm nước ép" },
+                new CategoryTranslation() { Id = 13, CategoryId = 7, NameCategory = "Ice Cream", LanguageId = 2, SeoAlias = "/ice-cream-105824", SeoDescription = "Good", SeoTitle = "Product Ice Cream" },
+                new CategoryTranslation() { Id = 14, CategoryId = 7, NameCategory = "Kem", LanguageId = 1, SeoAlias = "/kem-521564", SeoDescription = "Good Drink", SeoTitle = "Sản phầm kem" },
+                new CategoryTranslation() { Id = 15, CategoryId = 8, NameCategory = "Milk tea", LanguageId = 2, SeoAlias = "/milk-tea-941712", SeoDescription = "Good", SeoTitle = "Product Milk Tea" },
+                new CategoryTranslation() { Id = 16, CategoryId = 8, NameCategory = "Trà sữa", LanguageId = 1, SeoAlias = "/tra-sua-983343", SeoDescription = "Good Drink", SeoTitle = "Sản phầm trà sữa" },
+                new CategoryTranslation() { Id = 17, CategoryId = 9, NameCategory = "Milk", LanguageId = 2, SeoAlias = "/milk-428413", SeoDescription = "Good", SeoTitle = "Product Milk" },
+                new CategoryTranslation() { Id = 18, CategoryId = 9, NameCategory = "Sữa", LanguageId = 1, SeoAlias = "/sua-347134", SeoDescription = "Good Drink", SeoTitle = "Sản phầm sữa" });
 
             modelBuilder.Entity<Unit>().HasData(
                 new Unit() { Id = 1, IsActive = true },
@@ -156,9 +171,9 @@ namespace HikiCoffee.Data.Extensions
                 new IdentityUserRole<Guid> { RoleId = staffRoleId, UserId = quanghikiId });
 
             modelBuilder.Entity<Product>().HasData(
-                new Product() { Id = 1, IsActive = true, UnitId = 1, DateCreated = DateTime.Now, IsFeatured = true, ViewCount = 0, Stock = 5, OriginalPrice = 100000, Price = 90000, UrlImageCoverProduct = "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg" },
-                new Product() { Id = 2, IsActive = true, UnitId = 1, DateCreated = DateTime.Now, IsFeatured = false, ViewCount = 0, Stock = 15, OriginalPrice = 55000, Price = 47000, UrlImageCoverProduct = "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png" },
-                new Product() { Id = 3, IsActive = true, UnitId = 2, DateCreated = DateTime.Now, IsFeatured = true, ViewCount = 0, Stock = 9, OriginalPrice = 84000, Price = 72000, UrlImageCoverProduct = "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg" });
+                new Product() { Id = 1, IsActive = true, UnitId = 1, DateCreated = DateTime.Now, IsFeatured = true, ViewCount = 0, Stock = 0, OriginalPrice = 100000, Price = 90000, UrlImageCoverProduct = "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg" },
+                new Product() { Id = 2, IsActive = true, UnitId = 1, DateCreated = DateTime.Now, IsFeatured = false, ViewCount = 0, Stock = 0, OriginalPrice = 55000, Price = 47000, UrlImageCoverProduct = "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png" },
+                new Product() { Id = 3, IsActive = true, UnitId = 2, DateCreated = DateTime.Now, IsFeatured = true, ViewCount = 0, Stock = 0, OriginalPrice = 84000, Price = 72000, UrlImageCoverProduct = "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg" });
 
             modelBuilder.Entity<ProductTranslation>().HasData(
                 new ProductTranslation() { Id = 1, ProductId = 1, LanguageId = 1, NameProduct = "Cà phê đen", Description = "Cà phê đen thơm ngon từng vị", Details = "<h2><span style='font-size: 95%;'>Cà phê đen đóng chai nguyên chất tại Hà Nội</span></h2><p>Mua<strong> cà phê đen đóng chai </strong>online vào thời điểm này đang là lựa chọn số một cho những người yêu thích cà phê. Tình hình chống dịch của Hà Nội đang rất căng thẳng. Hàng quán thì đóng cửa, đi lại bị hạn chế, và không được tụ tập đông người. Nên cách tốt nhất vẫn là ngồi ở nhà hay ở chỗ làm và mua online một ly cà phê để thưởng thức</p>", SeoAlias = "/ca-phe-den-193412", SeoDescription = "Cafe đen bạn của mọi nhà", SeoTitle = "Cafe đen đậm vị thơm ngon" },
@@ -190,7 +205,19 @@ namespace HikiCoffee.Data.Extensions
                 new CoffeeTable() { Id = 6, NameCoffeeTable = "Table 06", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
                 new CoffeeTable() { Id = 7, NameCoffeeTable = "Table 07", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
                 new CoffeeTable() { Id = 8, NameCoffeeTable = "Table 08", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
-                new CoffeeTable() { Id = 9, NameCoffeeTable = "Table 09", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null });
+                new CoffeeTable() { Id = 9, NameCoffeeTable = "Table 09", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 10, NameCoffeeTable = "Table 10", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 11, NameCoffeeTable = "Table 11", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 12, NameCoffeeTable = "Table 12", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 13, NameCoffeeTable = "Table 13", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 14, NameCoffeeTable = "Table 14", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 15, NameCoffeeTable = "Table 15", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 16, NameCoffeeTable = "Table 16", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 17, NameCoffeeTable = "Table 17", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 18, NameCoffeeTable = "Table 18", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 19, NameCoffeeTable = "Table 19", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 20, NameCoffeeTable = "Table 20", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null },
+                new CoffeeTable() { Id = 21, NameCoffeeTable = "Table 21", IsActive = true, StatusId = 3, AppointmentTime = null, ExpirationTime = null });
 
 
 

@@ -1,6 +1,6 @@
-﻿namespace HikiCoffee.Data.Entities
+﻿namespace HikiCoffee.ViewModels.BillInfos
 {
-    public class BillInfo
+    public class BillInfoManagementViewModel
     {
         public int Id { get; set; }
 
@@ -14,9 +14,6 @@
 
         public decimal Amount { get; set; }
 
-        public Bill Bill { get; set; }
-
-        public Product Product { get; set; }
-
+        public string NameProduct { get; set; }
     }
 }

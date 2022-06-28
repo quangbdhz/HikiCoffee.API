@@ -22,9 +22,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _productTranslationService.AddProductTranslation(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{productTranslationId}")]
@@ -33,9 +33,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _productTranslationService.DeleteProductTranslation(productTranslationId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPost("Update")]
@@ -44,9 +44,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _productTranslationService.UpdateProductTranslation(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetByProductId/{productId}")]

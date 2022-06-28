@@ -8,9 +8,11 @@ namespace HikiCoffee.Application.Supliers
     {
         Task<List<SuplierViewModel>> GetAll();
 
+        Task<List<SuplierViewModel>> GetAllSuplierManagements();
+
         Task<ApiResult<SuplierViewModel>> GetById(int suplierId);
 
-        Task<ApiResult<bool>> AddSuplier(SuplierCreateRequest request);
+        Task<ApiResult<int>> AddSuplier(SuplierCreateRequest request);
 
         Task<ApiResult<bool>> UpdateSuplier(SuplierUpdateRequest request);
 

@@ -16,10 +16,10 @@ namespace HikiCoffee.BackendAPI.Controllers
             _categoryTranslationService = categoryTranslationService;
         }
 
-        [HttpGet("GetByCategoryId/{categoryTranslationId}")]
-        public async Task<IActionResult> AddCategoryTranslation(int categoryTranslationId)
+        [HttpGet("GetByCategoryId/{categoryId}")]
+        public async Task<IActionResult> GetByCategoryId(int categoryId)
         {
-            var result = await _categoryTranslationService.GetByCategoryId(categoryTranslationId);
+            var result = await _categoryTranslationService.GetByCategoryId(categoryId);
 
             return Ok(result);
         }
@@ -45,7 +45,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _categoryTranslationService.AddCategoryTranslation(request);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
 
@@ -55,9 +55,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _categoryTranslationService.UpdateCategoryTranslation(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{categoryTranslationId}")]
@@ -66,9 +66,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _categoryTranslationService.DeleteCategoryTranslation(categoryTranslationId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
 

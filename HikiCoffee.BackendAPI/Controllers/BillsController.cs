@@ -1,10 +1,14 @@
 ﻿using HikiCoffee.Application.Bills;
+using HikiCoffee.ViewModels.Bills;
 using HikiCoffee.ViewModels.Bills.BillDataRequest;
+using HikiCoffee.ViewModels.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class BillsController : ControllerBase
     {
@@ -21,22 +25,50 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _billService.AddBill(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.ResultObj);
+            return Ok(result);
         }
 
-        [HttpPatch("CheckOut")]
-        public async Task<IActionResult> CheckOut(int billId, double totalPayPrice)
+        [HttpPut("CheckOut")]
+        public async Task<IActionResult> CheckOut(BillCheckOutRequest request)
         {
-            var result = await _billService.CheckOutBill(billId, totalPayPrice);
+            var result = await _billService.CheckOutBill(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
+        [HttpPut("MergeBill")]
+        public async Task<IActionResult> MergeBill(MergeBillRequest request)
+        {
+            var result = await _billService.MergeBill(request);
 
+            if (!result.IsSuccessed)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetBillIdOfCoffeeTable/{coffeeTableId}")]
+        public async Task<IActionResult> GetBillIdOfCoffeeTable(int coffeeTableId)
+        {
+            var result = await _billService.GetBillIdOfCoffeeTable(coffeeTableId);
+
+            if (result == null)
+                return BadRequest(new InfoBillCoffeeTableViewModel() { BillId = 0 });
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllBill")]
+        public async Task<IActionResult> GetAllBill([FromQuery] PagingRequestBase request)
+        {
+            var bills = await _billService.GetAllBill(request);
+
+            return Ok(bills);
+        }
     }
 }

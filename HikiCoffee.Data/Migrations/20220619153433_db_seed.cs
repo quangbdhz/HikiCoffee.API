@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HikiCoffee.Data.Migrations
 {
-    public partial class db_update : Migration
+    public partial class db_seed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -407,7 +407,7 @@ namespace HikiCoffee.Data.Migrations
                     UserCustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DateCheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateCheckOut = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TotalPayPrice = table.Column<double>(type: "float", nullable: false, defaultValue: 0.0),
+                    TotalPayPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     StatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -564,8 +564,8 @@ namespace HikiCoffee.Data.Migrations
                     BillId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -589,9 +589,9 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "2dafb405-784a-402f-a436-26032d1680f3", "Customer role", "customer", "customer" },
-                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "de667a22-7095-413a-8634-30c33e9746f7", "Staff role", "staff", "staff" },
-                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "4ed22fac-9922-473d-acf2-697871d3c2c6", "Administrator role", "admin", "admin" }
+                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "11603e7a-d6da-4069-b881-855df88ca2e9", "Customer role", "customer", "customer" },
+                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "5d4bce45-f815-4d6e-95f3-18940c857139", "Staff role", "staff", "staff" },
+                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "3392e45a-2519-4cf5-8ed5-6e7d6b8137e9", "Administrator role", "admin", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -612,7 +612,11 @@ namespace HikiCoffee.Data.Migrations
                     { 2, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137567/HikiCoffee/Image_Category/Tea_ri0xmh.png" },
                     { 3, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Capuchino_nofwkm.png" },
                     { 4, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Beer_lxd9sc.png" },
-                    { 5, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Wine_ufhg6w.png" }
+                    { 5, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Wine_ufhg6w.png" },
+                    { 6, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Juice_tn0vyi.png" },
+                    { 7, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Ice_Cream_ftsjti.png" },
+                    { 8, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Milktea_pkf5s5.png" },
+                    { 9, true, true, null, 1, "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Milk_siwgx5.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -640,10 +644,11 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "DateCreated", "IsActive" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 13, 23, 34, 16, 801, DateTimeKind.Local).AddTicks(594), true },
-                    { 2, new DateTime(2022, 6, 13, 23, 34, 16, 801, DateTimeKind.Local).AddTicks(606), true },
-                    { 3, new DateTime(2022, 6, 13, 23, 34, 16, 801, DateTimeKind.Local).AddTicks(607), true },
-                    { 4, new DateTime(2022, 6, 13, 23, 34, 16, 801, DateTimeKind.Local).AddTicks(608), true }
+                    { 1, new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5785), true },
+                    { 2, new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5800), true },
+                    { 3, new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5801), true },
+                    { 4, new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5802), true },
+                    { 5, new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5803), true }
                 });
 
             migrationBuilder.InsertData(
@@ -660,10 +665,10 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "MoreInfo", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "SecurityStamp", "TokenCreated", "TokenExpires", "TwoFactorEnabled", "UrlImageUser", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, "b3a885e6-3323-48ef-867a-bc861f0b59b4", new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquangbhdz@gmail.com", true, "Tran", 1, true, "Quang", false, null, "Chùm", "tranquangbhdz@gmail.com", "admin", "AQAAAAEAACcQAAAAEGM1hBFTfnTcyNRXqH/TJR5v0tjDWNKKmx01n8uJzPq6VjurSBf0A3Y3ytGknjLlMg==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "admin" },
-                    { new Guid("17ec17a9-06b0-4455-81b2-cf49e5626a6f"), 0, "697a4d36-4eeb-49f2-abd5-14ddd19e0d0d", new DateTime(2000, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "oregairu@gmail.com", true, "Yukino", 2, true, "Yukinoshita", false, null, "yukino", "oregairu@gmail.com", "yukino", "AQAAAAEAACcQAAAAEEiDgT0sUmB+xsbtlJiyp9jcxx0mzPTnUIA818ozT7+LPLw6kkLbN6cfoMKGC19WMQ==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "yukino" },
-                    { new Guid("5864c4b8-d809-4cf3-b721-fdb7f868cac1"), 0, "422690fd-0581-4fa1-a54f-30de811274c9", new DateTime(2000, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquanghtkbtm@gmail.com", true, "Hachiman", 1, true, "Hikigaya", false, null, "8man", "tranquanghtkbtm@gmail.com", "quanghiki", "AQAAAAEAACcQAAAAELAIFPMMSfmBMxJvsP76o3YvcYG/So4RKuyiRNkU7og1X9FCJ4ISFU1zE3O8CJToaw==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "quanghiki" },
-                    { new Guid("902f60d4-000c-4ec2-bb30-148f1b6547dc"), 0, "1243c698-d7c9-44bb-8392-dc4e3b62d55e", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "nocustomer@hiki.studio.com", true, "No", 3, true, "Customer", false, null, "Không có thông tin khách hàng", "nocustomer@hiki.studio.com", "nocustomer", "AQAAAAEAACcQAAAAECgCPzKHpJ18plZhAC/GMGXta7LS1AblzQ2R5HxxAQlaMXJSsaWHl4JM9K+GkF07Ww==", null, false, null, "", null, null, false, "", "nocustomer" }
+                    { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, "df5527f2-a9a3-4907-830a-3011dbeebc28", new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquangbhdz@gmail.com", true, "Tran", 1, true, "Quang", false, null, "Chùm", "tranquangbhdz@gmail.com", "admin", "AQAAAAEAACcQAAAAEBRYnjsB30nFo7CuZs8MGp8JIxVKZL8LAvfLsVWTHL7XUtMHF27Cc851ewrjUCUeiQ==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "admin" },
+                    { new Guid("17ec17a9-06b0-4455-81b2-cf49e5626a6f"), 0, "d3947014-34b9-4cc1-a18a-e397857b10c2", new DateTime(2000, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "oregairu@gmail.com", true, "Yukino", 2, true, "Yukinoshita", false, null, "yukino", "oregairu@gmail.com", "yukino", "AQAAAAEAACcQAAAAEHxeRLcB0Wf+UJN0BAu3HImwNfp4T87e+HSZkLcFuuzXwbE9ebaJWM7AczCEzOVbiA==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "yukino" },
+                    { new Guid("5864c4b8-d809-4cf3-b721-fdb7f868cac1"), 0, "87583a29-95ec-4ef3-bb74-e4767b46c198", new DateTime(2000, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranquanghtkbtm@gmail.com", true, "Hachiman", 1, true, "Hikigaya", false, null, "8man", "tranquanghtkbtm@gmail.com", "quanghiki", "AQAAAAEAACcQAAAAEG8ZkN32NOT4BU/FfLM/AapLicGFUQks4UnjEamxelMaah1qTVHOZCnUi7gVJZB7Aw==", null, false, null, "", null, null, false, "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg", "quanghiki" },
+                    { new Guid("902f60d4-000c-4ec2-bb30-148f1b6547dc"), 0, "62e9cc49-8e96-4743-8c7f-c6825f2940fd", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "nocustomer@hiki.studio.com", true, "No", 3, true, "Customer", false, null, "Không có thông tin khách hàng", "nocustomer@hiki.studio.com", "nocustomer", "AQAAAAEAACcQAAAAEMd2KV+qeezty/WasYUQ911jddynOFylppc+fWE7kwz0f4GObNV1unbK6FQM7T/08g==", null, false, null, "", null, null, false, "", "nocustomer" }
                 });
 
             migrationBuilder.InsertData(
@@ -680,7 +685,15 @@ namespace HikiCoffee.Data.Migrations
                     { 7, 4, 2, "Beer", "/beer-942752", "Good", "Product Beer" },
                     { 8, 4, 1, "Bia", "/bia-821964", "Good Drink", "Sản phầm bia" },
                     { 9, 5, 2, "Wine", "/wine-105824", "Good", "Product Wine" },
-                    { 10, 5, 1, "Rược", "/ruoc-347134", "Good Drink", "Sản phầm rược" }
+                    { 10, 5, 1, "Rược", "/ruoc-347134", "Good Drink", "Sản phầm rược" },
+                    { 11, 6, 2, "Juice", "/juice-942712", "Good", "Product Juice" },
+                    { 12, 6, 1, "Nước ép", "/nuoc-ep-413521", "Good Drink", "Sản phầm nước ép" },
+                    { 13, 7, 2, "Ice Cream", "/ice-cream-105824", "Good", "Product Ice Cream" },
+                    { 14, 7, 1, "Kem", "/kem-521564", "Good Drink", "Sản phầm kem" },
+                    { 15, 8, 2, "Milk tea", "/milk-tea-941712", "Good", "Product Milk Tea" },
+                    { 16, 8, 1, "Trà sữa", "/tra-sua-983343", "Good Drink", "Sản phầm trà sữa" },
+                    { 17, 9, 2, "Milk", "/milk-428413", "Good", "Product Milk" },
+                    { 18, 9, 1, "Sữa", "/sua-347134", "Good Drink", "Sản phầm sữa" }
                 });
 
             migrationBuilder.InsertData(
@@ -696,17 +709,33 @@ namespace HikiCoffee.Data.Migrations
                     { 6, null, null, true, "Table 06", 3 },
                     { 7, null, null, true, "Table 07", 3 },
                     { 8, null, null, true, "Table 08", 3 },
-                    { 9, null, null, true, "Table 09", 3 }
+                    { 9, null, null, true, "Table 09", 3 },
+                    { 10, null, null, true, "Table 10", 3 },
+                    { 11, null, null, true, "Table 11", 3 },
+                    { 12, null, null, true, "Table 12", 3 },
+                    { 13, null, null, true, "Table 13", 3 },
+                    { 14, null, null, true, "Table 14", 3 },
+                    { 15, null, null, true, "Table 15", 3 },
+                    { 16, null, null, true, "Table 16", 3 },
+                    { 17, null, null, true, "Table 17", 3 },
+                    { 18, null, null, true, "Table 18", 3 },
+                    { 19, null, null, true, "Table 19", 3 },
+                    { 20, null, null, true, "Table 20", 3 }
                 });
 
             migrationBuilder.InsertData(
+                table: "CoffeeTables",
+                columns: new[] { "Id", "AppointmentTime", "ExpirationTime", "IsActive", "NameCoffeeTable", "StatusId" },
+                values: new object[] { 21, null, null, true, "Table 21", 3 });
+
+            migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "DateCreated", "IsActive", "IsFeatured", "OriginalPrice", "Price", "Stock", "UnitId", "UrlImageCoverProduct" },
+                columns: new[] { "Id", "DateCreated", "IsActive", "IsFeatured", "OriginalPrice", "Price", "UnitId", "UrlImageCoverProduct" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7443), true, true, 100000m, 90000m, 5, 1, "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg" },
-                    { 2, new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7455), true, false, 55000m, 47000m, 15, 1, "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png" },
-                    { 3, new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7457), true, true, 84000m, 72000m, 9, 2, "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg" }
+                    { 1, new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7150), true, true, 100000m, 90000m, 1, "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg" },
+                    { 2, new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7164), true, false, 55000m, 47000m, 1, "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png" },
+                    { 3, new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7167), true, true, 84000m, 72000m, 2, "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg" }
                 });
 
             migrationBuilder.InsertData(
@@ -721,7 +750,9 @@ namespace HikiCoffee.Data.Migrations
                     { 5, 1, "Bàn Còn Trống", 3 },
                     { 6, 2, "Tables Are Empty", 3 },
                     { 7, 1, "Bàn Đang Sử Dụng", 4 },
-                    { 8, 2, "Table In Use", 4 }
+                    { 8, 2, "Table In Use", 4 },
+                    { 9, 1, "Hóa Đơn Đã Được Gộp", 5 },
+                    { 10, 2, "Invoices Consolidated", 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -740,12 +771,12 @@ namespace HikiCoffee.Data.Migrations
                 columns: new[] { "Id", "Caption", "DateCreated", "FileSize", "ProductId", "SortOrder", "UrlImageProduct" },
                 values: new object[,]
                 {
-                    { 1, "image 1", new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7551), 0L, 1, 0, "https://icdn.dantri.com.vn/thumb_w/640/2021/03/04/vi-ca-phe-den-het-nhu-vi-cuoc-songdocx-1614866315610.png" },
-                    { 2, "image 2", new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7553), 0L, 1, 0, "https://artcoffee.vn/wp-content/uploads/2020/09/8-loi-ich-to-lon-cua-viec-uong-ca-phe-den-nguyen-chat-khong-duong.jpg" },
-                    { 3, "image 3", new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7554), 0L, 1, 0, "https://doisongbiz.com/wp-content/uploads/2017/04/bi-quyet-giam-can-nhanh-chong-bang-cafe-den.jpg" },
-                    { 4, "image 1", new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7555), 0L, 2, 0, "https://images.japancentre.com/recipes/pics/16/main/matcha-latte.jpg?1469572822" },
-                    { 5, "image 2", new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7555), 0L, 2, 0, "https://gimmedelicious.com/wp-content/uploads/2018/03/Iced-Matcha-Latte2.jpg" },
-                    { 6, "image 1", new DateTime(2022, 6, 13, 23, 34, 16, 845, DateTimeKind.Local).AddTicks(7557), 0L, 3, 0, "https://cdn.tgdd.vn/2021/11/CookDish/americano-la-gi-nguon-goc-cach-pha-americano-don-gian-va-avt-1200x676.jpg" }
+                    { 1, "image 1", new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7292), 0L, 1, 0, "https://icdn.dantri.com.vn/thumb_w/640/2021/03/04/vi-ca-phe-den-het-nhu-vi-cuoc-songdocx-1614866315610.png" },
+                    { 2, "image 2", new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7293), 0L, 1, 0, "https://artcoffee.vn/wp-content/uploads/2020/09/8-loi-ich-to-lon-cua-viec-uong-ca-phe-den-nguyen-chat-khong-duong.jpg" },
+                    { 3, "image 3", new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7295), 0L, 1, 0, "https://doisongbiz.com/wp-content/uploads/2017/04/bi-quyet-giam-can-nhanh-chong-bang-cafe-den.jpg" },
+                    { 4, "image 1", new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7296), 0L, 2, 0, "https://images.japancentre.com/recipes/pics/16/main/matcha-latte.jpg?1469572822" },
+                    { 5, "image 2", new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7297), 0L, 2, 0, "https://gimmedelicious.com/wp-content/uploads/2018/03/Iced-Matcha-Latte2.jpg" },
+                    { 6, "image 1", new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7298), 0L, 3, 0, "https://cdn.tgdd.vn/2021/11/CookDish/americano-la-gi-nguon-goc-cach-pha-americano-don-gian-va-avt-1200x676.jpg" }
                 });
 
             migrationBuilder.InsertData(

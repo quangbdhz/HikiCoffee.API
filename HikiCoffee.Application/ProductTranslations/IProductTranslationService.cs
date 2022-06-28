@@ -6,7 +6,7 @@ namespace HikiCoffee.Application.ProductTranslations
 {
     public interface IProductTranslationService
     {
-        Task<ApiResult<bool>> AddProductTranslation(ProductTranslationCreateRequest request);
+        Task<ApiResult<int>> AddProductTranslation(ProductTranslationCreateRequest request);
 
         Task<ApiResult<bool>> UpdateProductTranslation(ProductTranslationUpdateRequest request);
 

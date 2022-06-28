@@ -21,9 +21,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _unitTranslationService.AddUnitTranslation(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPut("Update/{currentLanguageId}")]
@@ -32,9 +32,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _unitTranslationService.UpdateUnitTranslation(request, currentLanguageId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{unitTranslationId}")]
@@ -43,9 +43,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _unitTranslationService.DeleteUnitTranslation(unitTranslationId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetByUnitId/{unitId}")]

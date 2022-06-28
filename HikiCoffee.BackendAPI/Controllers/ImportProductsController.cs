@@ -53,9 +53,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _importProductService.AddImportProduct(request);
 
             if(!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetPagingImportProductManagements")]

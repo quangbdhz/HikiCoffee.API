@@ -17,27 +17,27 @@ namespace HikiCoffee.Application.UnitTranslations
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddUnitTranslation(UnitTranslationCreateRequest request)
+        public async Task<ApiResult<int>> AddUnitTranslation(UnitTranslationCreateRequest request)
         {
             var checkLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == request.LanguageId);
             if (checkLanguage == null)
-                return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Language" + MessageConstants.NotFound);
 
             var checkTheUnitTranslation = await _context.UnitTranslations.FirstOrDefaultAsync(x => x.UnitId == request.UnitId && x.LanguageId == request.LanguageId);
             if (checkTheUnitTranslation != null)
-                return new ApiErrorResult<bool>("UnitTranslation version Language already exist.");
+                return new ApiErrorResult<int>("UnitTranslation version Language already exist.");
 
             var checkUnit = await _context.Uses.FirstOrDefaultAsync(x => x.Id == request.UnitId);
 
             if (checkUnit == null)
-                return new ApiErrorResult<bool>("Unit" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Unit" + MessageConstants.NotFound);
 
 
             var unitTranslation = new UnitTranslation() { NameUnit = request.NameUnit, LanguageId = request.LanguageId, MoreInfo = request.MoreInfo, UnitId = request.UnitId };
             await _context.UnitTranslations.AddAsync(unitTranslation);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>("Add UnitTranslation is success.");
+            return new ApiSuccessResult<int>(MessageConstants.AddSuccess("UnitTranslation"));
 
         }
 

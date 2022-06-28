@@ -51,8 +51,11 @@ namespace HikiCoffee.Application.MailConfirms
 
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
-                        smtp.Credentials = new System.Net.NetworkCredential(mailConfirmViewModel.FromMailId, mailConfirmViewModel.FromMailIdPassword);
                         smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = false;
+                        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtp.Credentials = new System.Net.NetworkCredential(mailConfirmViewModel.FromMailId, mailConfirmViewModel.FromMailIdPassword);
+
                         await smtp.SendMailAsync(mail);
                         return MessageConstants.MailSent;
                     }

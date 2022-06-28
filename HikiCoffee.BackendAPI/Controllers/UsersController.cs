@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
-    //[Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -34,12 +34,7 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _userService.Login(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
-
-            if (string.IsNullOrEmpty(result.Message))
-            {
                 return BadRequest(result);
-            }
 
             RefreshTokenViewModel refreshTokenViewModel = _userService.GenerateRefreshTokenViewModel();
 
@@ -105,6 +100,17 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             //0B64F6F0-9F60-45C9-9E7B-F68CCC3FC57F
             var user = await _userService.GetById(id);
+            return Ok(user);
+        }
+
+        [HttpGet("GetByUserLoginAppManagement/{id}")]
+        public async Task<IActionResult> GetByUserLoginAppManagement(Guid id)
+        {
+            var user = await _userService.GetByUserLoginAppManagement(id);
+
+            if(user == null)
+                return BadRequest(user);
+
             return Ok(user);
         }
 

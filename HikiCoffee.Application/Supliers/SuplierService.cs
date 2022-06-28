@@ -17,13 +17,22 @@ namespace HikiCoffee.Application.Supliers
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddSuplier(SuplierCreateRequest request)
+        public async Task<ApiResult<int>> AddSuplier(SuplierCreateRequest request)
         {
-            var suplier = new Suplier() { Address = request.Address, ContractDate = DateTime.Now, IsActive = true, Phone = request.Phone, NameSuplier = request.NameSuplier, Email = request.Email, MoreInfo = request.MoreInfo };
+            var suplier = new Suplier() { 
+                Address = request.Address, 
+                ContractDate = DateTime.Now, 
+                IsActive = true, 
+                Phone = request.Phone, 
+                NameSuplier = request.NameSuplier, 
+                Email = request.Email, 
+                MoreInfo = request.MoreInfo 
+            };
+
             await _context.Supliers.AddAsync(suplier);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>("Add Suplier is success");
+            return new ApiSuccessResult<int>(MessageConstants.AddSuccess("Suplier"));
         }
 
         public async Task<ApiResult<bool>> DeleteSuplier(int suplierId)
@@ -36,7 +45,7 @@ namespace HikiCoffee.Application.Supliers
                 suplier.IsActive = !suplier.IsActive;
 
                 await _context.SaveChangesAsync();
-                return new ApiSuccessResult<bool>("Delete Suplier is success.");
+                return new ApiSuccessResult<bool>(MessageConstants.DeleteSuccess("Suplier"));
             }
             catch (Exception ex)
             {
@@ -46,10 +55,37 @@ namespace HikiCoffee.Application.Supliers
 
         public async Task<List<SuplierViewModel>> GetAll()
         {
+            var querySuplier = from s in _context.Supliers where s.IsActive == true select s;
+
+            return await querySuplier.Select(x => new SuplierViewModel() 
+            { 
+                Id = x.Id, 
+                Address = x.Address, 
+                Phone = x.Phone, 
+                NameSuplier = x.NameSuplier, 
+                ContractDate = x.ContractDate, 
+                Email = x.Email, 
+                IsActive = x.IsActive, 
+                MoreInfo = x.MoreInfo 
+            }).ToListAsync();
+
+        }
+
+        public async Task<List<SuplierViewModel>> GetAllSuplierManagements()
+        {
             var querySuplier = from s in _context.Supliers select s;
 
-            return await querySuplier.Select(x => new SuplierViewModel() { Id = x.Id, Address = x.Address, Phone = x.Phone, NameSuplier = x.NameSuplier, ContractDate = x.ContractDate, Email = x.Email, IsActive = x.IsActive, MoreInfo = x.MoreInfo }).ToListAsync();
-
+            return await querySuplier.Select(x => new SuplierViewModel()
+            {
+                Id = x.Id,
+                Address = x.Address,
+                Phone = x.Phone,
+                NameSuplier = x.NameSuplier,
+                ContractDate = x.ContractDate,
+                Email = x.Email,
+                IsActive = x.IsActive,
+                MoreInfo = x.MoreInfo
+            }).ToListAsync();
         }
 
         public async Task<ApiResult<SuplierViewModel>> GetById(int suplierId)
@@ -85,7 +121,7 @@ namespace HikiCoffee.Application.Supliers
                 suplier.MoreInfo = request.MoreInfo;
 
                 await _context.SaveChangesAsync();
-                return new ApiSuccessResult<bool>("Update Suplier is success.");
+                return new ApiSuccessResult<bool>(MessageConstants.UpdateSuccess("Suplier"));
             }
             catch (Exception ex)
             {

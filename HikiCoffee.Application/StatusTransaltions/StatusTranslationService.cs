@@ -17,27 +17,27 @@ namespace HikiCoffee.Application.StatusTransaltions
         }
 
 
-        public async Task<ApiResult<bool>> AddStatusTranslation(int statusId, string nameStatus, int languageId)
+        public async Task<ApiResult<int>> AddStatusTranslation(int statusId, string nameStatus, int languageId)
         {
             var checkLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == languageId);
             if (checkLanguage == null)
-                return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Language" + MessageConstants.NotFound);
 
             var checkTheStatusTranslation = await _context.StatusTranslations.FirstOrDefaultAsync(x => x.StatusId == statusId && x.LanguageId == languageId);
             if (checkTheStatusTranslation != null)
-                return new ApiErrorResult<bool>("StatusTranslation version Language already exist.");
+                return new ApiErrorResult<int>("StatusTranslation version Language already exist.");
 
 
             var checkStatus = await _context.Statuses.FirstOrDefaultAsync(x => x.Id == statusId);
 
             if (checkStatus == null)
-                return new ApiErrorResult<bool>("Status" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Status" + MessageConstants.NotFound);
 
             var statusTranslation = new StatusTranslation() { StatusId = statusId, NameStatus = nameStatus, LanguageId = languageId };
             await _context.StatusTranslations.AddAsync(statusTranslation);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>("Add StatusTranslation is success.");
+            return new ApiSuccessResult<int>(MessageConstants.AddSuccess("StatusTranslation"));
         }
 
         public async Task<ApiResult<bool>> DeleteStatusTranslation(int id)

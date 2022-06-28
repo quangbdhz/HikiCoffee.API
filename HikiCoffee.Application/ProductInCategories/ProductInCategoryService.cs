@@ -17,14 +17,14 @@ namespace HikiCoffee.Application.ProductInCategories
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddProductInCategory(ProductInCategoryCreateRequest request)
+        public async Task<ApiResult<int>> AddProductInCategory(ProductInCategoryCreateRequest request)
         {
             var productInCategory = new ProductInCategory() { CategoryId = request.CategoryId, ProductId = request.ProductId };
 
             await _context.ProductInCategories.AddAsync(productInCategory);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>(MessageConstants.AddSuccess("Product In Category"));
+            return new ApiSuccessResult<int>(MessageConstants.AddSuccess("Product In Category"));
         }
 
         public async Task<ApiResult<bool>> DeleteProductInCategory(int productId, int categoryId)

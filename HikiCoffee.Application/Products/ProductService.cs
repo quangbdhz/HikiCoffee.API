@@ -132,7 +132,7 @@ namespace HikiCoffee.Application.Products
             await _context.SaveChangesAsync();
 
 
-            return new ApiSuccessResult<int>(product.Id);
+            return new ApiSuccessResult<int>(product.Id) { Message = MessageConstants.AddSuccess("Product")};
         }
 
         public async Task<ApiResult<bool>> UpdateProduct(ProductUpdateRequest productUpdateRequest)

@@ -38,7 +38,7 @@ namespace HikiCoffee.Application.Users
         {
             var user = await _userManager.FindByNameAsync(loginRequest.UserName);
             if (user == null) 
-                return new ApiErrorResult<Guid>("User" + MessageConstants.ErrorFound);
+                return new ApiErrorResult<Guid>("User" + MessageConstants.NotFound);
 
             var result = await _signInManager.PasswordSignInAsync(user, loginRequest.Password, loginRequest.RememberMe, true);
             if (!result.Succeeded)
@@ -339,6 +339,47 @@ namespace HikiCoffee.Application.Users
             var roles = await _userManager.GetRolesAsync(user);
 
             return string.Join(",", roles);
+        }
+
+        public async Task<UserManagementViewModel> GetByUserLoginAppManagement(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+                return new UserManagementViewModel() { Id = Guid.Empty};
+
+            var roles = await _userManager.GetRolesAsync(user);
+            bool isStaff = false;
+            foreach (var item in roles)
+            {
+                if (item.ToLower() == "staff")
+                {
+                    isStaff = true;
+                }
+            }
+
+            if (isStaff == false)
+                return new UserManagementViewModel() { Id = Guid.Empty };
+
+            var gender = await _context.Genders.SingleOrDefaultAsync(x => x.Id == user.GenderId);
+            if (gender == null)
+                return new UserManagementViewModel() { Id = Guid.Empty };
+
+            var userManagementViewModel = new UserManagementViewModel()
+            {
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                Dob = user.Dob,
+                Id = user.Id,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                UrlImageUser = user.UrlImageUser,
+                IsActive = user.IsActive,
+                IsEmailConfirmed = user.EmailConfirmed,
+                NameGender = gender.NameGender
+            };
+
+            return userManagementViewModel;
         }
     }
 }
