@@ -13,8 +13,5 @@
         public string SeoDescription { get; set; }
 
         public string SeoTitle { get; set; }
-
-
-        public IList<int> CategoryIds { get; set; }
     }
 }

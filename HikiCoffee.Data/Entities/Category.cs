@@ -6,6 +6,8 @@
 
         public int SortOrder { get; set; }
 
+        public string? UrlImageCoverCategory { get; set; }
+
         public bool? IsShowOnHome { get; set; }
 
         public int? ParentId { get; set; }

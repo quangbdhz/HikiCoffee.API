@@ -124,14 +124,15 @@ namespace HikiCoffee.Application.Products
                 ViewCount = 0,
                 DateCreated = DateTime.Now,
                 IsActive = true,
-                IsFeatured = productCreateRequest.IsFeatured
+                IsFeatured = productCreateRequest.IsFeatured,
+                UnitId = productCreateRequest.UnitId
             };
 
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
 
-            return new ApiSuccessResult<int>(product.Id);
+            return new ApiSuccessResult<int>(product.Id) { Message = MessageConstants.AddSuccess("Product")};
         }
 
         public async Task<ApiResult<bool>> UpdateProduct(ProductUpdateRequest productUpdateRequest)

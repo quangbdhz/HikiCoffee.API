@@ -24,17 +24,17 @@ namespace HikiCoffee.Application.ImportProducts
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddImportProduct(ImportProductCreateRequest request)
+        public async Task<ApiResult<int>> AddImportProduct(ImportProductCreateRequest request)
         {
             var user = await _userManager.FindByIdAsync(request.UserIdImportProduct.ToString());
 
             if (user == null)
-                return new ApiErrorResult<bool>("User ImportProduct" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("User ImportProduct" + MessageConstants.NotFound);
 
             var checkUserStaff = await _userManager.GetRolesAsync(user);
 
             if(checkUserStaff == null)
-                return new ApiErrorResult<bool>("User does not have permission.");
+                return new ApiErrorResult<int>("User does not have permission.");
 
             bool isStaff = false;
 
@@ -47,16 +47,16 @@ namespace HikiCoffee.Application.ImportProducts
             }
 
             if(isStaff ==  false)
-                return new ApiErrorResult<bool>("User does not have permission.");
+                return new ApiErrorResult<int>("User does not have permission.");
 
 
             var suplier = await _context.Supliers.FirstOrDefaultAsync(x => x.Id == request.SuplierId);
             if (suplier == null)
-                return new ApiErrorResult<bool>("Suplier" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Suplier" + MessageConstants.NotFound);
 
             var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.ProductId);
             if (product == null)
-                return new ApiErrorResult<bool>("Product" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Product" + MessageConstants.NotFound);
 
             product.Stock += request.Quantity;
             await _context.SaveChangesAsync();
@@ -65,7 +65,7 @@ namespace HikiCoffee.Application.ImportProducts
             await _context.ImportProducts.AddAsync(importProduct);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>("Add ImportProduct is success.");
+            return new ApiSuccessResult<int>(MessageConstants.AddSuccess("ImportProduct"));
         }
 
         public async Task<List<ImportProductViewModel>> GetAll()
@@ -241,6 +241,36 @@ namespace HikiCoffee.Application.ImportProducts
             return productViewModel;
         }
 
+        public async Task<PagedResult<ImportProductManagementViewModel>> GetPagingImportProductManagements(PagingRequestImportProduct request)
+        {
+            var query = from i in _context.ImportProducts
+                        join u in _context.Users on i.UserIdImportProduct equals u.Id
+                        join pt in _context.ProductTranslations on i.ProductId equals pt.ProductId where pt.LanguageId == request.LanguageId
+                        join s in _context.Supliers on i.SuplierId equals s.Id
+                        select new { i, u, pt, s };
 
+            var importProducts = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).Select(x => new ImportProductManagementViewModel()
+            {
+                Id = x.i.Id,
+                DateImportProduct = x.i.DateImportProduct,
+                PriceImportProduct = x.i.PriceImportProduct,
+                Quantity = x.i.Quantity,
+                FullNameStaffAddImportProduct = x.u.FirstName + " " + x.u.LastName,
+                ProductName = x.pt.NameProduct,
+                SuplierName = x.s.NameSuplier
+            }).ToListAsync();
+
+            int totalRow = query.Count();
+
+            var pagedResult = new PagedResult<ImportProductManagementViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
+                Items = importProducts
+            };
+
+            return pagedResult;
+        }
     }
 }

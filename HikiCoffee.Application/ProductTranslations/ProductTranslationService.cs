@@ -18,20 +18,20 @@ namespace HikiCoffee.Application.ProductTranslations
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddProductTranslation(ProductTranslationCreateRequest request)
+        public async Task<ApiResult<int>> AddProductTranslation(ProductTranslationCreateRequest request)
         {
             var checkLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == request.LanguageId);
             if (checkLanguage == null)
-                return new ApiErrorResult<bool>("Language" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Language" + MessageConstants.NotFound);
 
             var checkTheProductTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.ProductId && x.LanguageId == request.LanguageId);
 
             if (checkTheProductTranslation != null)
-                return new ApiErrorResult<bool>("ProductTranslation version Language already exist.");
+                return new ApiErrorResult<int>("ProductTranslation version Language already exist.");
 
             var checkProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.ProductId);
             if (checkProduct == null)
-                return new ApiErrorResult<bool>("Product" + MessageConstants.NotFound);
+                return new ApiErrorResult<int>("Product" + MessageConstants.NotFound);
 
             var productTranslation = new ProductTranslation() 
             { 
@@ -47,14 +47,7 @@ namespace HikiCoffee.Application.ProductTranslations
             await _context.ProductTranslations.AddAsync(productTranslation);
             await _context.SaveChangesAsync();
 
-            foreach (var item in request.CategoryIds)
-            {
-                var productInCategory = new ProductInCategory() { CategoryId = item, ProductId = request.ProductId };
-                await _context.ProductInCategories.AddAsync(productInCategory);
-                await _context.SaveChangesAsync();
-            }
-
-            return new ApiSuccessResult<bool>("Add ProductTranslation is success.");
+            return new ApiSuccessResult<int>("Add ProductTranslation is success.");
         }
 
         public async Task<ApiResult<bool>> DeleteProductTranslation(int productTranslationId)
@@ -75,6 +68,44 @@ namespace HikiCoffee.Application.ProductTranslations
             {
                 return new ApiErrorResult<bool>(ex.Message);
             }
+        }
+
+        public async Task<List<ItemOderViewModel>> GetAllByCategoryId(int categoryId, int languageId)
+        {
+            var query = from pic in _context.ProductInCategories
+                        where pic.CategoryId == categoryId
+                        join p in _context.Products on pic.ProductId equals p.Id where p.Stock > 0
+                        join ut in _context.UnitTranslations on p.UnitId equals ut.UnitId where ut.LanguageId == languageId 
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId where pt.LanguageId == languageId
+                        select new { pt, p, ut };
+
+            return await query.Select(x => new ItemOderViewModel()
+            {
+                LanguageId = x.pt.LanguageId,
+                NameProduct = x.pt.NameProduct,
+                NameUnit = x.ut.NameUnit,
+                OriginalPrice = x.p.OriginalPrice,
+                Price = x.p.Price,
+                ProductId = x.pt.ProductId
+            }).ToListAsync();
+        }
+
+        public async Task<List<ProductTranslationManagementViewModel>> GetAllByLanguageId(int languageId)
+        {
+            var productTranslations = await _context.ProductTranslations.Where(x => x.LanguageId == languageId).Select(x => new ProductTranslationManagementViewModel()
+            {
+                Id = x.Id,
+                Description = x.Description,
+                SeoDescription = x.SeoDescription,
+                Details = x.Details,
+                LanguageId = x.LanguageId,
+                NameProduct = x.NameProduct,
+                ProductId = x.ProductId,
+                SeoAlias = x.SeoAlias,
+                SeoTitle = x.SeoTitle
+            }).ToListAsync();
+
+            return productTranslations;
         }
 
         public async Task<List<ProductTranslationManagementViewModel>> GetByProductId(int productId)
@@ -118,13 +149,6 @@ namespace HikiCoffee.Application.ProductTranslations
                         break;
 
                     _context.ProductInCategories.Remove(productInCategory);
-                    await _context.SaveChangesAsync();
-                }
-
-                foreach (int item in request.CategoryIds)
-                {
-                    var newProductInCategories = new ProductInCategory() { ProductId = productTranslation.ProductId, CategoryId = item };
-                    await _context.ProductInCategories.AddAsync(newProductInCategories);
                     await _context.SaveChangesAsync();
                 }
 

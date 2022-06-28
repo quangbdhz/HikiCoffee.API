@@ -20,6 +20,8 @@ namespace HikiCoffee.Application.Users
 
         Task<ApiResult<UserViewModel>> GetByEmail(string email);
 
+        Task<UserManagementViewModel> GetByUserLoginAppManagement(Guid userId);
+
         Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
 
         Task<ApiResult<bool>> Delete(Guid id);
@@ -31,6 +33,10 @@ namespace HikiCoffee.Application.Users
         RefreshTokenViewModel GenerateRefreshTokenViewModel();
 
         Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
+
+        Task<PagedResult<UserManagementViewModel>> GetPagingUserManagements(PagingRequestBase request);
+
+        Task<string> GetAllRoleOfUser(Guid userId);
 
     }
 }

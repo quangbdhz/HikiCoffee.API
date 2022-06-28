@@ -6,12 +6,14 @@ namespace HikiCoffee.Application.UnitTranslations
 {
     public interface IUnitTranslationService
     {
-        Task<ApiResult<bool>> AddUnitTranslation(UnitTranslationCreateRequest request);
+        Task<ApiResult<int>> AddUnitTranslation(UnitTranslationCreateRequest request);
 
         Task<ApiResult<bool>> UpdateUnitTranslation(UnitTranslationUpdateRequest request, int currentLanguageId);
 
         Task<ApiResult<bool>> DeleteUnitTranslation(int unitTranslationId);
 
         Task<List<UnitTranslationManagementViewModel>> GetByUnitId(int unitId);
+
+        Task<List<UnitTranslationManagementViewModel>> GetAllUnitTranslation(int languageId);
     }
 }

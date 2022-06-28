@@ -22,9 +22,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _productTranslationService.AddProductTranslation(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{productTranslationId}")]
@@ -33,9 +33,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _productTranslationService.DeleteProductTranslation(productTranslationId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPost("Update")]
@@ -44,9 +44,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _productTranslationService.UpdateProductTranslation(request);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetByProductId/{productId}")]
@@ -56,6 +56,25 @@ namespace HikiCoffee.BackendAPI.Controllers
 
             if (result.Count < 1)
                 return NotFound("Product Translation Is Not Found.");
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllByLanguageId/{languageId}")]
+        public async Task<IActionResult> GetAllByLanguageId(int languageId)
+        {
+            var result = await _productTranslationService.GetAllByLanguageId(languageId);
+
+            if (result.Count < 1)
+                return NotFound("Product Translation Is Not Found.");
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllByCategoryId/{categoryId}/{languageId}")]
+        public async Task<IActionResult> GetAllByCategoryId(int categoryId, int languageId)
+        {
+            var result = await _productTranslationService.GetAllByCategoryId(categoryId, languageId);
 
             return Ok(result);
         }

@@ -8,10 +8,12 @@ using HikiCoffee.Application.Genders;
 using HikiCoffee.Application.ImportProducts;
 using HikiCoffee.Application.Languages;
 using HikiCoffee.Application.MailConfirms;
+using HikiCoffee.Application.ProductInCategories;
 using HikiCoffee.Application.Products;
 using HikiCoffee.Application.ProductTranslations;
 using HikiCoffee.Application.Statuses;
 using HikiCoffee.Application.StatusTransaltions;
+using HikiCoffee.Application.Supliers;
 using HikiCoffee.Application.UnitTranslations;
 using HikiCoffee.Application.Users;
 using HikiCoffee.Application.Uses;
@@ -59,6 +61,8 @@ builder.Services.AddTransient<IGenderService, GenderService>();
 builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IStatusTranslationService, StatusTranslationService>();
 builder.Services.AddTransient<ICategoryTranslationService, CategoryTranslationService>();
+builder.Services.AddTransient<IProductInCategoryService, ProductInCategoryService>();
+builder.Services.AddTransient<ISuplierService, SuplierService>();
 
 
 //builder.Services.AddControllers();

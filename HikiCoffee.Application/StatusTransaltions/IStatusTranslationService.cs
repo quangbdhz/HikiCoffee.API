@@ -5,7 +5,7 @@ namespace HikiCoffee.Application.StatusTransaltions
 {
     public interface IStatusTranslationService
     {
-        Task<ApiResult<bool>> AddStatusTranslation(int statusId, string nameStatus, int languageId);
+        Task<ApiResult<int>> AddStatusTranslation(int statusId, string nameStatus, int languageId);
 
         Task<ApiResult<bool>> UpdateStatusTranslation(int id, string nameStatus);
 

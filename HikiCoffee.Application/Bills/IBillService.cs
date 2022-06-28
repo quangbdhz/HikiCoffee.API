@@ -1,4 +1,5 @@
-﻿using HikiCoffee.ViewModels.Bills.BillDataRequest;
+﻿using HikiCoffee.ViewModels.Bills;
+using HikiCoffee.ViewModels.Bills.BillDataRequest;
 using HikiCoffee.ViewModels.Common;
 
 namespace HikiCoffee.Application.Bills
@@ -7,6 +8,12 @@ namespace HikiCoffee.Application.Bills
     {
         Task<ApiResult<int>> AddBill(BillCreateRequest request);
 
-        Task<ApiResult<bool>> CheckOutBill(int billId, double totalPayPrice);
+        Task<ApiResult<bool>> MergeBill(MergeBillRequest request);
+
+        Task<InfoBillCoffeeTableViewModel?> GetBillIdOfCoffeeTable(int coffeeTableId);
+
+        Task<ApiResult<bool>> CheckOutBill(BillCheckOutRequest request);
+
+        Task<PagedResult<InfoBillCoffeeTableViewModel>> GetAllBill(PagingRequestBase request);
     }
 }

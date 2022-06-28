@@ -16,14 +16,14 @@ namespace HikiCoffee.Application.Uses
             _context = context;
         }
 
-        public async Task<ApiResult<bool>> AddUnit()
+        public async Task<ApiResult<int>> AddUnit()
         {
             var unit = new Unit() { IsActive = true };
 
             await _context.Uses.AddAsync(unit);
             await _context.SaveChangesAsync();
 
-            return new ApiSuccessResult<bool>("Add Unit is success.");
+            return new ApiSuccessResult<int>("Add Unit is success.");
         }
 
         public async Task<ApiResult<bool>> DeleteUnit(int id)

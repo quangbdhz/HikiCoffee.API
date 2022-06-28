@@ -13,6 +13,8 @@ namespace HikiCoffee.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.UrlImageCoverCategory).IsUnicode(false).HasMaxLength(500).IsRequired(true);
+
             builder.Property(x => x.IsShowOnHome).HasDefaultValue(true).IsRequired(false);
 
             builder.Property(x => x.ParentId).IsRequired(false);

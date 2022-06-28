@@ -1,9 +1,12 @@
 ﻿using HikiCoffee.Application.CoffeeTables;
+using HikiCoffee.ViewModels.CoffeeTables.CoffeeTableDataRequest;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CoffeeTablesController : ControllerBase
     {
@@ -18,6 +21,14 @@ namespace HikiCoffee.BackendAPI.Controllers
         public async Task<IActionResult> GetAll(int languageIdStatus)
         {
             var result = await _coffeeTableService.GetAll(languageIdStatus);
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllCoffeeTaleManagements")]
+        public async Task<IActionResult> GetAllCoffeeTaleManagements()
+        {
+            var result = await _coffeeTableService.GetAllCoffeeTaleManagements();
 
             return Ok(result);
         }
@@ -38,18 +49,29 @@ namespace HikiCoffee.BackendAPI.Controllers
         {
             var result = await _coffeeTableService.AddCoffeeTable(nameCoffeeTable);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
-        [HttpPatch("Update")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateCoffeeTable(int coffeeTableId, string nameCoffeeTable)
         {
             var result = await _coffeeTableService.UpdateCoffeeTable(coffeeTableId, nameCoffeeTable);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
+        }
+
+        [HttpPut("ChangeStatusCoffeeTable")]
+        public async Task<IActionResult> ChangeStatusCoffeeTable(ChangeStatusCoffeeTableRequest request)
+        {
+            var result = await _coffeeTableService.ChangeStatusCoffeeTable(request);
+
+            if (!result.IsSuccessed)
+                return BadRequest(result);
+
+            return Ok(result);
         }
 
         [HttpDelete("Delete")]
@@ -58,11 +80,20 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _coffeeTableService.DeleteCoffeeTable(coffeeTableId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
+        [HttpPut("ChangeCoffeeTableIdInBill")]
+        public async Task<IActionResult> ChangeCoffeeTableIdInBill(ChangeCoffeeTableIdInBillRequest request)
+        {
+            var result = await _coffeeTableService.ChangeCoffeeTableIdInBill(request);
 
+            if (!result.IsSuccessed)    
+                return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }

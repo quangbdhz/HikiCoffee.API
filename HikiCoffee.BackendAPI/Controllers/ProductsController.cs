@@ -1,6 +1,7 @@
 ﻿using HikiCoffee.Application.Products;
 using HikiCoffee.ViewModels.Common;
 using HikiCoffee.ViewModels.Products.ProducDataRequest;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
@@ -24,6 +25,7 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
         [HttpGet("GetPagingProductManagements")]
+        [Authorize]
         public async Task<IActionResult> GetPagingProductManagements([FromQuery] PagingRequestBase request)
         {
             var products = await _producService.GetPagingProductManagements(request);
@@ -50,17 +52,18 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
         [HttpPost("Add")]
+        [Authorize]
         public async Task<IActionResult> AddProduct(ProductCreateRequest productCreateRequest)
         {
             var result = await _producService.AddProduct(productCreateRequest);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
             if(result.ResultObj == 0)
-                return NotFound(result.Message);
+                return NotFound(result);
 
-            return Ok(result.ResultObj);
+            return Ok(result);
         }
 
         [HttpPut("Update")]
@@ -69,9 +72,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.UpdateProduct(productUpdateRequest);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPatch("AddViewCount/{productId}")]
@@ -80,9 +83,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.AddViewCountProduct(productId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{productId}")]
@@ -91,9 +94,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _producService.DeleteProduct(productId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
     }

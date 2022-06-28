@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
-    //[Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -33,10 +33,8 @@ namespace HikiCoffee.BackendAPI.Controllers
 
             var result = await _userService.Login(request);
 
-            if (string.IsNullOrEmpty(result.Message))
-            {
+            if (!result.IsSuccessed)
                 return BadRequest(result);
-            }
 
             RefreshTokenViewModel refreshTokenViewModel = _userService.GenerateRefreshTokenViewModel();
 
@@ -105,6 +103,17 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(user);
         }
 
+        [HttpGet("GetByUserLoginAppManagement/{id}")]
+        public async Task<IActionResult> GetByUserLoginAppManagement(Guid id)
+        {
+            var user = await _userService.GetByUserLoginAppManagement(id);
+
+            if(user == null)
+                return BadRequest(user);
+
+            return Ok(user);
+        }
+
         [HttpGet("GetByEmail/{email}")]
         public async Task<IActionResult> GetByEmail(string email)
         {
@@ -158,11 +167,15 @@ namespace HikiCoffee.BackendAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("Detete/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.Delete(id);
-            return Ok(result);
+
+            if(!result.IsSuccessed)
+                return BadRequest(result.Message);
+
+            return Ok(result.Message);
         }
 
         [HttpPut("RoleAssign/{id}")]
@@ -177,6 +190,14 @@ namespace HikiCoffee.BackendAPI.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
+        }
+
+        [HttpGet("GetPagingUserManagements")]
+        public async Task<IActionResult> GetPagingUserManagements([FromQuery] PagingRequestBase request)
+        {
+            var users = await _userService.GetPagingUserManagements(request);
+
+            return Ok(users);
         }
     }
 }

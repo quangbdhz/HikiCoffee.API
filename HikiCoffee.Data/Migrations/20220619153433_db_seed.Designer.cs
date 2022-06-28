@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HikiCoffee.Data.Migrations
 {
     [DbContext(typeof(HikiCoffeeDbContext))]
-    [Migration("20220603143743_update_db")]
-    partial class update_db
+    [Migration("20220619153433_db_seed")]
+    partial class db_seed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,7 +90,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            ConcurrencyStamp = "4d3d8934-54ba-4145-8d80-328d8179b718",
+                            ConcurrencyStamp = "3392e45a-2519-4cf5-8ed5-6e7d6b8137e9",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -98,7 +98,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("c489f858-aabd-4264-96c1-5cdca251d871"),
-                            ConcurrencyStamp = "34b4e71e-6506-437d-8eef-2a11c2713fc0",
+                            ConcurrencyStamp = "5d4bce45-f815-4d6e-95f3-18940c857139",
                             Description = "Staff role",
                             Name = "staff",
                             NormalizedName = "staff"
@@ -106,7 +106,7 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            ConcurrencyStamp = "8a641e1e-dd0d-43ef-a49e-097e037f7a37",
+                            ConcurrencyStamp = "11603e7a-d6da-4069-b881-855df88ca2e9",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -211,9 +211,32 @@ namespace HikiCoffee.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = new Guid("902f60d4-000c-4ec2-bb30-148f1b6547dc"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "62e9cc49-8e96-4743-8c7f-c6825f2940fd",
+                            Dob = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "nocustomer@hiki.studio.com",
+                            EmailConfirmed = true,
+                            FirstName = "No",
+                            GenderId = 3,
+                            IsActive = true,
+                            LastName = "Customer",
+                            LockoutEnabled = false,
+                            MoreInfo = "Không có thông tin khách hàng",
+                            NormalizedEmail = "nocustomer@hiki.studio.com",
+                            NormalizedUserName = "nocustomer",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMd2KV+qeezty/WasYUQ911jddynOFylppc+fWE7kwz0f4GObNV1unbK6FQM7T/08g==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UrlImageUser = "",
+                            UserName = "nocustomer"
+                        },
+                        new
+                        {
                             Id = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c71d9160-b5bd-49a1-ae0c-1dc3bad1b486",
+                            ConcurrencyStamp = "df5527f2-a9a3-4907-830a-3011dbeebc28",
                             Dob = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tranquangbhdz@gmail.com",
                             EmailConfirmed = true,
@@ -225,12 +248,58 @@ namespace HikiCoffee.Data.Migrations
                             MoreInfo = "Chùm",
                             NormalizedEmail = "tranquangbhdz@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAQmCw4PXpxO1KatG5mQz52i1Nus4AFVH56r5pfxBgCo6czNSX15X0uDrBJzIuFCFA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBRYnjsB30nFo7CuZs8MGp8JIxVKZL8LAvfLsVWTHL7XUtMHF27Cc851ewrjUCUeiQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UrlImageUser = "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg",
                             UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("5864c4b8-d809-4cf3-b721-fdb7f868cac1"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "87583a29-95ec-4ef3-bb74-e4767b46c198",
+                            Dob = new DateTime(2000, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "tranquanghtkbtm@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Hachiman",
+                            GenderId = 1,
+                            IsActive = true,
+                            LastName = "Hikigaya",
+                            LockoutEnabled = false,
+                            MoreInfo = "8man",
+                            NormalizedEmail = "tranquanghtkbtm@gmail.com",
+                            NormalizedUserName = "quanghiki",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG8ZkN32NOT4BU/FfLM/AapLicGFUQks4UnjEamxelMaah1qTVHOZCnUi7gVJZB7Aw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UrlImageUser = "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg",
+                            UserName = "quanghiki"
+                        },
+                        new
+                        {
+                            Id = new Guid("17ec17a9-06b0-4455-81b2-cf49e5626a6f"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d3947014-34b9-4cc1-a18a-e397857b10c2",
+                            Dob = new DateTime(2000, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "oregairu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Yukino",
+                            GenderId = 2,
+                            IsActive = true,
+                            LastName = "Yukinoshita",
+                            LockoutEnabled = false,
+                            MoreInfo = "yukino",
+                            NormalizedEmail = "oregairu@gmail.com",
+                            NormalizedUserName = "yukino",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHxeRLcB0Wf+UJN0BAu3HImwNfp4T87e+HSZkLcFuuzXwbE9ebaJWM7AczCEzOVbiA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UrlImageUser = "https://64.media.tumblr.com/f3685609f6f9e0f15b70b740380fe0db/85dff69cc547be63-1d/s640x960/a0fa84e4ec96b338ec45f925baccc9619131013c.jpg",
+                            UserName = "yukino"
                         });
                 });
 
@@ -254,12 +323,12 @@ namespace HikiCoffee.Data.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<double>("TotalPayPrice")
+                    b.Property<decimal>("TotalPayPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
-                    b.Property<Guid>("UserCustomerId")
+                    b.Property<Guid?>("UserCustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserPaymentId")
@@ -284,14 +353,14 @@ namespace HikiCoffee.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BillId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -332,6 +401,12 @@ namespace HikiCoffee.Data.Migrations
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
+                    b.Property<string>("UrlImageCoverCategory")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(500)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories", (string)null);
@@ -342,14 +417,72 @@ namespace HikiCoffee.Data.Migrations
                             Id = 1,
                             IsActive = true,
                             IsShowOnHome = true,
-                            SortOrder = 1
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Coffee_adqju2.png"
                         },
                         new
                         {
                             Id = 2,
                             IsActive = true,
                             IsShowOnHome = true,
-                            SortOrder = 2
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137567/HikiCoffee/Image_Category/Tea_ri0xmh.png"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Capuchino_nofwkm.png"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Beer_lxd9sc.png"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655137566/HikiCoffee/Image_Category/Wine_ufhg6w.png"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Juice_tn0vyi.png"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Ice_Cream_ftsjti.png"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Milktea_pkf5s5.png"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsActive = true,
+                            IsShowOnHome = true,
+                            SortOrder = 1,
+                            UrlImageCoverCategory = "https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1655392394/HikiCoffee/Image_Category/Milk_siwgx5.png"
                         });
                 });
 
@@ -436,6 +569,146 @@ namespace HikiCoffee.Data.Migrations
                             SeoAlias = "/tra-837113",
                             SeoDescription = "Good Drink",
                             SeoTitle = "Sản phầm trà"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 3,
+                            LanguageId = 2,
+                            NameCategory = "Capuchino",
+                            SeoAlias = "/capuchino-156342",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Capuchino"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 3,
+                            LanguageId = 1,
+                            NameCategory = "Capuchino",
+                            SeoAlias = "/capuchino-537342",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm Capuchino"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 4,
+                            LanguageId = 2,
+                            NameCategory = "Beer",
+                            SeoAlias = "/beer-942752",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Beer"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 4,
+                            LanguageId = 1,
+                            NameCategory = "Bia",
+                            SeoAlias = "/bia-821964",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm bia"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 5,
+                            LanguageId = 2,
+                            NameCategory = "Wine",
+                            SeoAlias = "/wine-105824",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Wine"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 5,
+                            LanguageId = 1,
+                            NameCategory = "Rược",
+                            SeoAlias = "/ruoc-347134",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm rược"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 6,
+                            LanguageId = 2,
+                            NameCategory = "Juice",
+                            SeoAlias = "/juice-942712",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Juice"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 6,
+                            LanguageId = 1,
+                            NameCategory = "Nước ép",
+                            SeoAlias = "/nuoc-ep-413521",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm nước ép"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 7,
+                            LanguageId = 2,
+                            NameCategory = "Ice Cream",
+                            SeoAlias = "/ice-cream-105824",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Ice Cream"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 7,
+                            LanguageId = 1,
+                            NameCategory = "Kem",
+                            SeoAlias = "/kem-521564",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm kem"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 8,
+                            LanguageId = 2,
+                            NameCategory = "Milk tea",
+                            SeoAlias = "/milk-tea-941712",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Milk Tea"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 8,
+                            LanguageId = 1,
+                            NameCategory = "Trà sữa",
+                            SeoAlias = "/tra-sua-983343",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm trà sữa"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 9,
+                            LanguageId = 2,
+                            NameCategory = "Milk",
+                            SeoAlias = "/milk-428413",
+                            SeoDescription = "Good",
+                            SeoTitle = "Product Milk"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CategoryId = 9,
+                            LanguageId = 1,
+                            NameCategory = "Sữa",
+                            SeoAlias = "/sua-347134",
+                            SeoDescription = "Good Drink",
+                            SeoTitle = "Sản phầm sữa"
                         });
                 });
 
@@ -471,6 +744,155 @@ namespace HikiCoffee.Data.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("CoffeeTables", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 01",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 02",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 03",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 04",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 05",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 06",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 07",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 08",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 09",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 10",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 11",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 12",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 13",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 14",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 15",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 16",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 17,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 17",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 18",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 19,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 19",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 20,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 20",
+                            StatusId = 3
+                        },
+                        new
+                        {
+                            Id = 21,
+                            IsActive = true,
+                            NameCoffeeTable = "Table 21",
+                            StatusId = 3
+                        });
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.Gender", b =>
@@ -507,6 +929,12 @@ namespace HikiCoffee.Data.Migrations
                             Id = 2,
                             IsActive = true,
                             NameGender = "Female"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            NameGender = "Custom"
                         });
                 });
 
@@ -629,6 +1057,9 @@ namespace HikiCoffee.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<int?>("UnitId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UrlImageCoverProduct")
                         .HasMaxLength(1000)
                         .IsUnicode(false)
@@ -641,42 +1072,47 @@ namespace HikiCoffee.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UnitId");
+
                     b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6649),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7150),
                             IsActive = true,
                             IsFeatured = true,
                             OriginalPrice = 100000m,
                             Price = 90000m,
-                            Stock = 5,
+                            Stock = 0,
+                            UnitId = 1,
                             UrlImageCoverProduct = "https://i.pinimg.com/originals/ea/3f/37/ea3f37ad3242d1796f7136741dcebfbd.jpg",
                             ViewCount = 0
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6662),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7164),
                             IsActive = true,
                             IsFeatured = false,
                             OriginalPrice = 55000m,
                             Price = 47000m,
-                            Stock = 15,
+                            Stock = 0,
+                            UnitId = 1,
                             UrlImageCoverProduct = "https://coffeebean.com.vn/wp-content/uploads/2019/09/Matcha-green-tea-Affogato-1.png",
                             ViewCount = 0
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6664),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7167),
                             IsActive = true,
                             IsFeatured = true,
                             OriginalPrice = 84000m,
                             Price = 72000m,
-                            Stock = 9,
+                            Stock = 0,
+                            UnitId = 2,
                             UrlImageCoverProduct = "https://www.coffeesphere.com/wp-content/uploads/2020/07/what-is-americano.jpeg",
                             ViewCount = 0
                         });
@@ -722,7 +1158,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 1,
                             Caption = "image 1",
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6741),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7292),
                             FileSize = 0L,
                             ProductId = 1,
                             SortOrder = 0,
@@ -732,7 +1168,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 2,
                             Caption = "image 2",
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6742),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7293),
                             FileSize = 0L,
                             ProductId = 1,
                             SortOrder = 0,
@@ -742,7 +1178,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 3,
                             Caption = "image 3",
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6743),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7295),
                             FileSize = 0L,
                             ProductId = 1,
                             SortOrder = 0,
@@ -752,7 +1188,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 4,
                             Caption = "image 1",
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6744),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7296),
                             FileSize = 0L,
                             ProductId = 2,
                             SortOrder = 0,
@@ -762,7 +1198,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 5,
                             Caption = "image 2",
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6745),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7297),
                             FileSize = 0L,
                             ProductId = 2,
                             SortOrder = 0,
@@ -772,7 +1208,7 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 6,
                             Caption = "image 1",
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 980, DateTimeKind.Local).AddTicks(6746),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 623, DateTimeKind.Local).AddTicks(7298),
                             FileSize = 0L,
                             ProductId = 3,
                             SortOrder = 0,
@@ -961,25 +1397,31 @@ namespace HikiCoffee.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5548),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5785),
                             IsActive = true
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5558),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5800),
                             IsActive = true
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5558),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5801),
                             IsActive = true
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2022, 6, 3, 21, 37, 42, 971, DateTimeKind.Local).AddTicks(5559),
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5802),
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateCreated = new DateTime(2022, 6, 19, 22, 34, 32, 584, DateTimeKind.Local).AddTicks(5803),
                             IsActive = true
                         });
                 });
@@ -1067,6 +1509,20 @@ namespace HikiCoffee.Data.Migrations
                             LanguageId = 2,
                             NameStatus = "Table In Use",
                             StatusId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            LanguageId = 1,
+                            NameStatus = "Hóa Đơn Đã Được Gộp",
+                            StatusId = 5
+                        },
+                        new
+                        {
+                            Id = 10,
+                            LanguageId = 2,
+                            NameStatus = "Invoices Consolidated",
+                            StatusId = 5
                         });
                 });
 
@@ -1137,6 +1593,11 @@ namespace HikiCoffee.Data.Migrations
                         {
                             Id = 1,
                             IsActive = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true
                         });
                 });
 
@@ -1179,16 +1640,32 @@ namespace HikiCoffee.Data.Migrations
                             Id = 1,
                             LanguageId = 1,
                             MoreInfo = "",
-                            NameUnit = "Cỡ X",
+                            NameUnit = "Không có",
                             UnitId = 1
                         },
                         new
                         {
                             Id = 2,
                             LanguageId = 2,
+                            MoreInfo = "",
+                            NameUnit = "Not Found",
+                            UnitId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LanguageId = 1,
+                            MoreInfo = "",
+                            NameUnit = "Cỡ X",
+                            UnitId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LanguageId = 2,
                             MoreInfo = "Size X",
                             NameUnit = "Size X",
-                            UnitId = 1
+                            UnitId = 2
                         });
                 });
 
@@ -1273,6 +1750,11 @@ namespace HikiCoffee.Data.Migrations
                         {
                             UserId = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             RoleId = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba")
+                        },
+                        new
+                        {
+                            UserId = new Guid("5864c4b8-d809-4cf3-b721-fdb7f868cac1"),
+                            RoleId = new Guid("c489f858-aabd-4264-96c1-5cdca251d871")
                         });
                 });
 
@@ -1435,6 +1917,15 @@ namespace HikiCoffee.Data.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Suplier");
+                });
+
+            modelBuilder.Entity("HikiCoffee.Data.Entities.Product", b =>
+                {
+                    b.HasOne("HikiCoffee.Data.Entities.Unit", "Unit")
+                        .WithMany("Products")
+                        .HasForeignKey("UnitId");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.ProductImage", b =>
@@ -1601,6 +2092,8 @@ namespace HikiCoffee.Data.Migrations
 
             modelBuilder.Entity("HikiCoffee.Data.Entities.Unit", b =>
                 {
+                    b.Navigation("Products");
+
                     b.Navigation("UnitTranslations");
                 });
 #pragma warning restore 612, 618

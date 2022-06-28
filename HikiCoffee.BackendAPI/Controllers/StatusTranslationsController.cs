@@ -21,9 +21,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _statusTranslationService.AddStatusTranslation(statusId, nameStatus, languageId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
 
@@ -33,9 +33,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _statusTranslationService.DeleteStatusTranslation(statusId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPut("Update")]
@@ -44,9 +44,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _statusTranslationService.UpdateStatusTranslation(id, nameStatus);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpGet("GetByStatusId")]

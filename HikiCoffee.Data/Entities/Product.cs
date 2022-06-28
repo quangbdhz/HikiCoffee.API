@@ -20,6 +20,10 @@
 
         public bool IsActive { get; set; }
 
+        public int? UnitId { get; set; }
+
+        public Unit? Unit { get; set; }
+
         public List<ProductImage> ProductImages { get; set; }
 
         public List<ProductTranslation> ProductTranslations { get; set; }

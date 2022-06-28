@@ -1,10 +1,12 @@
 ﻿using HikiCoffee.Application.Supliers;
 using HikiCoffee.ViewModels.Supliers.SuplierDataRequest;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiCoffee.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class SupliersController : ControllerBase
     {
@@ -16,10 +18,17 @@ namespace HikiCoffee.BackendAPI.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var supliers = await _suplierService.GetAll();
+            return Ok(supliers);
+        }
+
+        [HttpGet("GetAllSuplierManagements")]
+        public async Task<IActionResult> GetAllSuplierManagements()
+        {
+            var supliers = await _suplierService.GetAllSuplierManagements();
             return Ok(supliers);
         }
 
@@ -43,9 +52,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _suplierService.AddSuplier(request);
 
             if (!result.IsSuccessed)
-                return BadRequest();
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpPut("Update")]
@@ -57,9 +66,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _suplierService.UpdateSuplier(request);
 
             if (!result.IsSuccessed)
-                return BadRequest();
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("Delete/{suplierId}")]
@@ -68,9 +77,9 @@ namespace HikiCoffee.BackendAPI.Controllers
             var result = await _suplierService.DeleteSuplier(suplierId);
 
             if (!result.IsSuccessed)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok(result.Message);
+            return Ok(result);
         }
 
     }
