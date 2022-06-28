@@ -1,5 +1,7 @@
 # WebAPI HikiCoffee
 
+API Management Coffee Shop
+
 ## Functions
 
 * Register account, Confirm Mail Validation
@@ -18,7 +20,7 @@
 ## Technologies
 
 * **Programming Language:** C#
-* **Back End:**  ASP.NET Core, Fluent API, JWT, 
+* **Back End:**  ASP.NET Core, Fluent API, JWT
 * **Database:** SQL Server, Entity Framework
 
 ## Install Tools
